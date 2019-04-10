@@ -1,0 +1,154 @@
+swagger: '2.0'
+
+info:
+  version: '1.0.0'
+  title: MaSo API
+
+host: 'maso-staging.herokuapp.com'
+basePath: '/'
+securityDefinitions:
+  JWT:
+    type: 'apiKey'
+    in: 'header'
+    name: 'Authorization'
+
+schemes: ['https']
+
+paths:
+
+  # --- USERS ---
+
+  /users:
+    post:
+      summary: Registeres a user
+      description: |
+        Creates a user record and sends `accessToken` with profile details in the
+        response. To use the `accessToken` for subsequent requests set authorization
+        header like shown below.
+        ```
+        Authorization: ACCESS_TOKEN_VALUE
+        ```
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserPost'
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/UserPostRes'
+        400:
+          description: Bad request
+        409:
+          description: Conflict record found
+      tags: ['Users']
+      security: []
+
+  # --- COMPETITIONS ---
+
+  /competitions/current/problems:
+    post:
+      summary: Marks problem as solved by user
+      description: |
+        Marks problem as solved by user in current competition. Solved problems
+        count against teams score in competition.
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateProblemPost'
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/UpdateProblemPostRes'
+        400:
+          description: Bad request
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                value: BAD_REQUEST
+              message:
+                type: string
+                value: Tým nebyl nalezen.
+        401:
+          description: Conflict record found
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                value: UNAUTHORIZED
+              message:
+                type: string
+                value: Heslo není platné.
+      tags: ['Competitions', 'Problems']
+      security: []
+
+definitions:
+
+  UserPost:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+
+  UserPostRes:
+    type: object
+    properties:
+      accessToken:
+        type: string
+      profile:
+        type: object
+        properties:
+          id:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          email:
+            type: string
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+
+  UpdateProblemPost:
+    type: object
+    properties:
+      team:
+        type: integer
+      problem:
+        type: integer
+      password:
+        type: string
+
+  UpdateProblemPostRes:
+    type: object
+    properties:
+      id:
+        type: integer
+      competitionId:
+        type: integer
+      teamId:
+        type: integer
+      problemNumber:
+        type: integer
+      cancelled:
+        type: boolean
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time

@@ -1,0 +1,25 @@
+# IDE files
+.idea
+.vscode
+
+# Packages
+node_modules
+
+# Generated files
+.nyc_output
+web/coverage
+web/dist
+web/build
+coverage/
+
+# Local configuration
+.env
+api/scripts/importData/*
+api/scripts/tisk/*
+api/scripts/draftsmen.csv
+api/scripts/draftsmen-access.csv
+
+# System files
+.DS_Store
+iOS/Pods/
+npm-debug\.log
