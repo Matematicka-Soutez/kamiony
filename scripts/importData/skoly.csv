@@ -1,0 +1,137 @@
+﻿SKOLA_ID;KOD;SK_NAZOV;PEDAGOG;EMAIL;PREDNASKA;hash;MISTO_KONANI;ovvp_id;ovvp_allow;address;zip;city;show_school_form;state;short_name
+1;aa1c9f;Arcibiskupské gymnázium;Lucia Miháliková;mihalikova@arcig.cz;0;aa1c9f;praha;aesop:393;0;Korunní 2;120 00;Praha 2;1;CZE;Arcibiskupské gymnázium
+2;ac2d68;Gymn. Jaroslava Heyrovského;Břetislav Zubík;Bretislav.zubik@gymjh.cz;0;ac2d68;praha;aesop:1046;0;Mezi Školami 2475/29;158 00;Praha 5;1;CZE;Gymn. Jaroslava Heyrovského
+3;ac5656;G. Jiřího Gutha-Jarkovského;Eva Doležalová;ev.dolezalova@seznam.cz;0;ac5656;praha;aesop:781;1;Truhlářská 22;110 00;Praha 1 - Nové Město;1;CZE;G. Jiřího Gutha-Jarkovského
+4;ad624e;Gymnázium Jižní Město;Mgr. Lenka Vojteková;lenka.vojtekova@gjm.cz;0;ad624e;praha;aesop:701;0;Tererova 17/2135;149 00;Praha 4;1;CZE;Gymnázium Jižní Město
+5;ae9b07;"Gymnázium, Špitálská";Ciburová Miluše;miluse.ciburova@gymspit.cz;0;ae9b07;praha;aesop:2063;0;Špitálská 2/700;190 00;Praha 9 - Vysočany;1;CZE;"Gymnázium, Špitálská"
+6;afc332;"Gymnázium Praha 9, Chodovická";Karla Benešová;benesovakarla@seznam.cz;0;afc332;praha;aesop:642;1;Chodovická 2250;193 00;Praha 9 - Horní Počernice;1;CZE;"Gymnázium Praha 9, Chodovická"
+8;a30507;"Gymnázium, Litoměřická";RNDr. Wokounová Miroslava;wokounova@gymlit.cz;0;a30507;praha;aesop:667;0;Litoměřická 726;190 21;Praha 9 - Prosek;1;CZE;"Gymnázium, Litoměřická"
+9;a38f34;Gymnázium Elišky Krásnohorské;PhDr. Zuzana Korcová;korcova@gekom.cz;0;a38f34;praha;aesop:3124;1;Ohradní 55;141 00;Praha 4;1;CZE;Gymnázium Elišky Krásnohorské
+10;a388ef;Gymnázium Christiana Dopplera;Klouček Milan;kloucekm@seznam.cz;0;a388ef;praha;aesop:725;0;Zborovská 45/621;150 00;Praha 5 - Smíchov;1;CZE;Gymnázium Christiana Dopplera
+11;a5109e;Gymnázium J. Seiferta;"Lucie Žalská, Lucie Hlavová, Jan Kozubek";"l.zalska@gymjs.cz, l.hlavova@gymjs.cz, jan.kozubek@seznam.cz";0;a5109e;praha;aesop:2209;1;Vysočanské nám. 500;190 00;Praha 9;1;CZE;Gymnázium J. Seiferta
+12;a74e5e;Gymnázium Jana Keplera;Josef Kvasničák;kvasnicak@gjk.cz;0;a74e5e;praha;aesop:661;1;Parléřova 2;169 00;Praha 6;1;CZE;Gymnázium Jana Keplera
+13;a78230;Gymnázium Nad Alejí;Pavlína Vágenknechtová Edrová;pavlina.edrova@alej.cz;0;a78230;praha;aesop:676;0;Nad Alejí 1952;162 00;Praha 6;1;CZE;Gymnázium Nad Alejí
+14;a8c0c6;Gymnázium Nad Kavalírkou;Bergerová Lenka;bergerova.lenka@post.cz;0;a8c0c6;praha;aesop:678;0;Nad Kavalírkou 1;150 00;Praha 5 - Košíře;1;CZE;Gymnázium Nad Kavalírkou
+15;a9d02d;Gymnázium Nad Štolou;Souradová Martina;martina.souradova@gymstola.cz;0;a9d02d;praha;aesop:506;1;Nad Štolou 1;170 00;Praha 7;1;CZE;Gymnázium Nad Štolou
+16;bad38c;Gymnázium Opatov;Jitka Kučerová;jitkajitka@centrum.cz;0;bad38c;praha;aesop:664;0;Konstantinova 1500;149 00;Praha 4;1;CZE;Gymnázium Opatov
+17;ba2cd8;Gymnázium PORG;Kateřina Fišerová;fiserova@porg.cz;0;ba2cd8;praha;aesop:747;1;Linderova 3;180 00;Praha 8;1;CZE;Gymnázium PORG
+18;bcde3d;Gymnázium Karla Sladkovského;Lenka Burkertová;leburkert@seznam.cz;0;bcde3d;praha;aesop:691;1;Sladkovského nám. 8;130 00;Praha 3;1;CZE;Gymnázium Karla Sladkovského
+19;bdf251;"Gymnázium, Praha 10, Voděradská 2";Jana Málková;malkova@gymvod.cz;0;bdf251;praha;aesop:721;1;Voděradská 2;100 00;Praha 10;1;CZE;"Gymnázium, Praha 10, Voděradská 2"
+20;bd03b7;Křesťanské gymnázium;PaedDr. Alena Musilová;alenka.m@atlas.cz;0;bd03b7;praha;aesop:2107;0;Kozinova 1000;102 00;Praha 10 - Hostivař;1;CZE;Křesťanské gymnázium
+21;bd90f4;"Mensa gymnázium, o.p.s.";Mgr. Matúš Kepič;matus.kepic@mensagymnazium.cz;0;bd90f4;praha;aesop:624;1;Španielova 1111/19;163 00;Praha 6 - Řepy;1;CZE;"Mensa gymnázium, o.p.s."
+22;bfa0ee;"ZŠ Karla Čapka, Kodaňská";Alena Vávrová;vavrova@zskodanska.cz;0;bfa0ee;praha;aesop:21222;1;Kodaňská 16;101 00;Praha 10 - Vršovice;1;CZE;"ZŠ Karla Čapka, Kodaňská"
+23;b0ef35;"Základní škola, Jílovská";Petr Neuvirt;petr.neuvirt@zsjilovska.cz;0;b0ef35;praha;aesop:21265;0;Jílovská 1100/16;142 00;Praha 4;1;CZE;"Základní škola, Jílovská"
+24;b0761a;"Základní škola, Na Smetance";Helena Paďourová;helenapadourova@seznam.cz;0;b0761a;praha;aesop:3380;0;Na Smetance 505/1;120 00;Praha 2;1;CZE;"Základní škola, Na Smetance"
+25;b09d45;"Základní škola, K Dolům";I. Dobšová;I.Dobsova@seznam.cz;0;b09d45;praha;aesop:21270;0;U Domu služeb 29/2;143 00;Praha 4 - Modřany;1;CZE;"Základní škola, K Dolům"
+26;b110ba;"Základní škola, Litvínovská";Jana Netušilová;netka.netka@seznam.cz;0;b110ba;praha;aesop:3319;0;Litvínovská 600;190 00;Praha 9 - Prosek;1;CZE;"Základní škola, Litvínovská"
+27;b2a207;"Základní škola, Uhelný trh";Mgr. Daniela Stuchlíková;stuchlikova.dana@centrum.cz;0;b2a207;praha;aesop:3388;0;Uhelný trh 4;110 00;Praha 1;1;CZE;"Základní škola, Uhelný trh"
+28;b346e6;"Základní škola, Sázavská";Mgr. Jitka Procházková;jitproch@seznam.cz;0;b346e6;praha;aesop:18213;1;Sázavská 5/830;120 00;Praha 2;1;CZE;"Základní škola, Sázavská"
+29;b625ad;FZŠ Táborská;Věra Fenclová;vfenclova@zstaborska.cz;0;b625ad;praha;aesop:38569;0;Táborská 45;140 00;Praha 4 - Nusle;1;CZE;FZŠ Táborská
+30;b699cc;"Základní škola, Nepomucká";Olga Pospíchalová;pos.ol@seznam.cz;0;b699cc;praha;aesop:21291;0;Nepomucká 1/139;150 00;Praha 5;1;CZE;"Základní škola, Nepomucká"
+31;b7e006;Základní škola;Ing. Hana Štylerová;stylerova@zsmikulova.cz;0;b7e006;praha;aesop:18479;0;Mikulova 1594;149 00;Praha 4 - Háje;1;CZE;"Základní škola, Praha 4, Mikulova 1594"
+32;b72c60;ZŠ a MŠ Červený vrch;Mgr. Jana Marešová;stenglova@zscvrch.cz;0;b72c60;praha;aesop:3371;0;Alžírská 680;160 00;Praha 6;1;CZE;ZŠ a MŠ Červený vrch
+33;b87ff0;ZŠ a MŠ Praha 3;Hana Urbanová;urbanova@lobkovicovo.cz;0;b87ff0;praha;aesop:21252;0;nám. Jiřího z Lobkovic 22;130 00;Praha 3;1;CZE;ZŠ a MŠ Praha 3
+34;b96fcc;"ZŠ s RVJ, FŠ PedF UK, Kladská";Jitka Klimentová;jitkaklim@gmail.com;0;b96fcc;praha;aesop:20981;0;Kladská 1;120 00;Praha 2;1;CZE;"ZŠ s RVJ, FŠ PedF UK, Kladská"
+35;cad126;ZŠ Na Planině;Mgr. Miloslava Zahálková;zahalkova@planina.cz;0;cad126;praha;aesop:21273;0;Na Planině 1393;140 00;Praha 4 - Krč;1;CZE;ZŠ Na Planině
+36;cc2e08;"ZŠ Praha 8, Libčická";"";"";0;cc2e08;praha;aesop:3350;0;Libčická 10/658;181 00;Praha 8;1;CZE;"ZŠ Praha 8, Libčická"
+37;cc498b;ZŠ Ratibořická;Eva Holá;eva.hola@centrum.cz;0;cc498b;praha;aesop:3313;0;Ratibořická 1700;193 00;Praha 9;1;CZE;ZŠ Ratibořická
+38;cdcce5;"ZŠ s RVJ,  Jeremenkova";Mgr. Marcela Šternová;Marcela.Sternova@zsjeremenkova.cz;0;cdcce5;praha;aesop:21274;0;Jeremenkova 1003;147 00;Praha 4;1;CZE;"ZŠ s RVJ,  Jeremenkova"
+39;cd24b4;"Základní škola, Filosofská";Marie Miškovská;miskovska@zsfilosofska.cz;0;cd24b4;praha;aesop:21264;0;Filosofská 3/1166;142 00;Praha 4 - Braník;1;CZE;"Základní škola, Filosofská"
+40;ce3897;Gymnázium Jana Nerudy;"Helena Vrbíková, Tereza Poddaná";"vrbikova@gjn.cz, poddana@gjn.cz";0;ce3897;praha;aesop:655;0;Hellichova 3;118 00;Praha 1 - Malá Strana;1;CZE;Gymnázium Jana Nerudy
+41;cfd721;Gymnázium Milady Horákové;PhDr. Vlastimila Nováková;novakova@planina.cz;0;cfd721;praha;aesop:41982;1;Na Planině 1393;140 00;Praha 4;1;CZE;Gymnázium Milady Horákové
+42;cf86b5;ZŠ Ohradní;Mgr. Jaroslava Hlaváčková;hlavackova@zs-ohradni.cz;0;cf86b5;praha;aesop:22612;0;Ohradní 49/1366;140 00;Praha 4 - Michle;1;CZE;ZŠ Ohradní
+43;c0cadc;Gymnázium Jaroslava Vrchlického;Eva Kislingerová;ekislingerova@gymkt.cz;0;c0cadc;praha;aesop:471;0;Národních mučedníků 347;339 01;Klatovy;1;CZE;Gymnázium Jaroslava Vrchlického
+44;c09f86;Gymnázium Dr.J.Pekaře;Mgr. Jiřina Balažíková;balazikova@pekargmb.cz;0;c09f86;praha;aesop:658;0;Palackého 211/3;293 80;Mladá Boleslav;1;CZE;Gymnázium Dr.J.Pekaře
+45;c32764;GaSOŠe Vimperk;Iva Doubková;kancelar@oag.cz;0;c32764;praha;aesop:744;0;Pivovarská 69;385 01;Vimperk;1;CZE;GaSOŠe Vimperk
+46;c37749;PORG Ostrava;Mgr. Kadlecová Miloslava;kadlecova@porg.cz;0;c37749;brno;aesop:130403;1;Rostislavova 7;703 00;Ostrava – Vítkovice;1;CZE;PORG Ostrava
+47;c6d7ba;ZŠ a MŠ Dolní Břežany;Petr Nádvorník;nadvornik@skolabrezany.cz;0;c6d7ba;praha;aesop:40332;1;Na Vršku 290;252 41;Dolní Břežany;1;CZE;ZŠ a MŠ Dolní Břežany
+48;c79672;Gymnázium Pierra de Coubertina;"Mgr. Miloslava Fučíková, RNDr. Alena Šedivá";skola@gymta.cz;0;c79672;praha;aesop:571;0;Náměstí Františka Křižíka 860;390 30;Tábor;1;CZE;Gymnázium Pierra de Coubertina
+49;c9e81d;Gymnázium Budějovická;Mgr. Jana Kovářová;jana.szabova@gybu.cz;0;c9e81d;praha;aesop:628;0;Budějovická 680;140 00;Praha 4;1;CZE;Gymnázium Budějovická
+50;c90f57;ZŠ Ke Kateřinkám;;;0;c90f57;praha;aesop:21284;0;Ke Kateřinkám 1400;149 00;Praha 4;1;CZE;ZŠ Ke Kateřinkám
+51;c90073;Matiční gymnázium;Mgr. Jaroslava Kaňková;kankova@mgo.cz;0;c90073;praha;aesop:797;0;Dr. Šmerala 25;728 04;Ostrava 1;1;CZE;Matiční gymnázium
+52;c97b04;Gymnázium Lovosice;Pavla Linková;linkovap@gymlovo.cz;0;c97b04;praha;aesop:489;1;Sady pionýrů 600;410 02;Lovosice;1;CZE;Gymnázium Lovosice
+53;da7130;GJJ Litoměřice;Putnarová Jitka;putnarova.j@gjj.cz;0;da7130;praha;aesop:653;1;Svojsíkova 1015/1a;412 65;Litoměřice;1;CZE;GJJ Litoměřice
+54;da816d;Gymnázium Matyáše Lercha;Roman Podlena;podlena@gml.cz;0;da816d;brno;aesop:674;0;Žižkova 55;616 00;Brno;1;CZE;Gymnázium Matyáše Lercha
+55;dba2d2;Gymnázium Písnická;"Mgr. Šárka Hamáčková, Vít Vlasák";"s.hamackova@gmail.com, vlasakvit@seznam.cz";0;dba2d2;praha;aesop:2095;0;Písnická 760;142 00;Praha 4;1;CZE;Gymnázium Písnická 760
+56;dc7ffe;Gymnázium Omská;Eva Krejčová;eva.krejcova@omska.cz;0;dc7ffe;praha;aesop:2114;1;Omská 1300;100 00;Praha 10 - Vršovice;1;CZE;Gymnázium Omská
+57;dd2a2c;ZŠ Slovenská;Jana Polohová;polohova@zs-slovenska.cz;0;dd2a2c;praha;aesop:21245;0;Slovenská 1726/27;120 39;Praha 2;1;CZE;ZŠ Slovenská
+58;dd320a;Gymnázium Na Vítězné pláni;Barbora Krejčí;krejci@gvp.cz;0;dd320a;praha;aesop:681;1;Na Vítězné pláni 1160;140 00;Praha 4;1;CZE;Gymnázium Na Vítězné pláni
+59;defde7;Gymnázium Sušice;Filip Jano;Filip.Jano@centrum.cz;0;defde7;praha;aesop:561;0;Fr. Procházky 324;342 01;Sušice;1;CZE;Gymnázium Sušice
+60;df17b2;Gymnázium a SOŠ Podbořany;Markéta Wolfová;mfwolf@seznam.cz;0;df17b2;praha;aesop:520;1;Komenského 843;441 01;Podbořany;1;CZE;Gymnázium a SOŠ Podbořany
+61;df43b3;Gymnázium Havířov;Jindřiška Janečková;janeckova@gkh.cz;0;df43b3;praha;aesop:1487;0;Komenského 2;736 01;Havířov - město;1;CZE;Gymnázium Havířov
+62;d0b174;ZŠ Pardubice - Polabiny;Jan Horálek;jan.horalek@zspolabiny1.cz;0;d0b174;praha;aesop:40091;0;Družstevní 305;530 09;Pardubice;1;CZE;ZŠ Pardubice - Polabiny
+63;d0742a;Open Gate school;"Luděk Michalik, Knizkova Lubica";"michalik@opengate.cz, knizkova@opengate.cz";0;d0742a;praha;aesop:41115;0;Babice 5;251 01;Říčany;1;CZE;Open Gate school
+64;d1dfbc;"Gymnázium a SOŠ Mikulov, p.o.";Kamila Kmetová;kamila.kmetova@gymik.cz;0;d1dfbc;brno;aesop:498;1;Komenského 7;692 16;Mikulov;1;CZE;"Gymnázium a střední odborná škola Mikulov, p.o."
+65;d13341;Gymnázium J. S. Machara;Pavel Sládek;sladek.pavel@email.cz;0;d13341;praha;aesop:416;1;Královická 668;250 50;Brandýs nad Labem - Stará Boleslav;1;CZE;"Gymnázium J. S. Machara, Brandýs nad Labem-Stará Boleslav"
+66;d575b0;Základní škola Komenského Skuteč;Jakomíra Skočílková;beranek.mirek@gmail.com;0;d575b0;praha;aesop:40068;0;Komenského nám. 150;539 73;Skuteč;1;CZE;Základní škola Komenského Skuteč
+67;d6e583;Gymnázium Jana Palacha;Dana Hilská;hilska@gjp-me.cz;0;d6e583;praha;aesop:493;1;Pod Vrchem 3421;276 82;Mělník;1;CZE;Gymnázium Jana Palacha
+68;d62d3e;Gymnázium Český Brod;Markéta Hájková;hajkova@gcbrod.cz;0;d62d3e;praha;aesop:419;0;Vítězná 616;282 27;Český Brod;1;CZE;Gymnázium Český Brod
+69;d69b27;Gymnázium Boskovice;Mgr. Stanislav Sedláček;stanislav.sedlacek@gymbos.cz;0;d69b27;brno;aesop:415;0;Palackého náměstí 1;680 11;Boskovice;1;CZE;Gymnázium Boskovice
+70;d7bf03;Základní škola Veselí nad Moravou;Josef Gajoš;gajos@zshutnikves.cz;0;d7bf03;brno;aesop:37866;0;Hutník 1456;698 01;Veselí nad Moravou;1;CZE;"Základní škola Veselí nad Moravou, Hutník 1456"
+71;d892ec;Základní škola Rohatec;Zdeňka Bachelová;zsrohatec@quick.cz;0;d892ec;brno;aesop:37906;0;Školní 50;696 01;Rohatec;1;CZE;Základní škola Rohatec
+72;d9b515;"ZŠ a MŠ Břeclav, p.o.";Jana Miloševská;milosevska@kupkova.cz;0;d9b515;brno;aesop:39477;1;Kupkova 1;690 02;Břeclav;1;CZE;"Základní škola a Mateřská škola Břeclav, p.o."
+73;d95918;"Základní škola Mikulov, Valtická 3, p.o.";Ing. Silvie Pospíšilová;spospisilova@zsvaltickamikulov.cz;0;d95918;brno;aesop:39488;1;Valtická 3;692 01;Mikulov;1;CZE;"Základní škola Mikulov, Valtická"
+74;ebb78f;Základní škola Mikulov;Mgr. Jana Panáčková;panackova@zsmikulov.cz;0;ebb78f;brno;aesop:39505;1;Hraničářů 617e;692 01;Mikulov;1;CZE;Základní škola Mikulov
+75;eb8eb4;"Gymnázium Plzeň, Mikulášské nám. 23";Věra Krůsová;vera.krusova@mikulasske.cz;0;eb8eb4;praha;aesop:675;1;Mikulášské nám. 23;326 00;Plzeň;1;CZE;"Gymnázium Plzeň, Mikulášské nám. 23"
+76;ecc62a;Nový PORG – gymnázium;Matěj Soukup;soukup@novyporg.cz;0;ecc62a;praha;aesop:136432;0;Pod Krčským lesem 1300/25;142 00;Praha 4;1;CZE;Nový PORG – gymnázium
+77;ee25ff;Gymnázium Čelákovice;Kateřina Dadáková ;dadakova@gymnacel.cz;0;ee25ff;praha;aesop:1302;1;J. A. Komenského 414;250 88;Čelákovice;1;CZE;Gymnázium Čelákovice
+78;ee5c6e;Gymnázium a SOŠ dr. V. Šmejkala;Petra Klímková;klimkova@gym-ul.cz;0;ee5c6e;praha;aesop:695;0;Stavbařů 5;400 11;Ústí nad Labem;1;CZE;Gymnázium a Střední odborná škola dr. V. Šmejkala
+79;e0ae8a;ZŠ Pardubice – Studánka;Ing. Petra Antlová;antlovap@seznam.cz;0;e0ae8a;praha;aesop:40090;1;Pod Zahradami 317;530 03;Pardubice;1;CZE;ZŠ Pardubice – Studánka
+80;e0b49d;Základní škola Skuteč;Mgr. Eliška Leopoldová;poldina@centrum.cz;0;e0b49d;praha;aesop:40069;1;Smetanova 304;539 73;Skuteč;1;CZE;Základní škola Skuteč
+81;e06cb6;ZŠ Velké Bílovice;Mgr. Taťána Bajáková;tanabajak@volny.cz;0;e06cb6;brno;aesop:39497;1;Fabián 1215;691 02;Velké Bílovice;1;CZE;ZŠ Velké Bílovice
+82;e06982;Gymnázium Třebíč;Mgr. Ludmila Prokešová;prokesoval@gtr.cz;0;e06982;brno;aesop:2290;1;Masarykovo nám 9/116;647 01;Třebíč;1;CZE;Gymnázium Třebíč
+84;e2b661;ZŠ Ronov nad Doubravou;Marie Kořínková;majkakorinkova@o2active.cz;0;e2b661;praha;aesop:40067;1;Chittussiho náměstí 153;538 42;Ronov nad Doubravou;1;CZE;ZŠ Ronov nad Doubravou
+85;e34383;"ZŠ Svitavy, nám. Míru 73";Silvie Ludrová;silvieludrova@gmail.com;0;e34383;brno;aesop:40152;1;náměstí Míru 73;568 02;Svitavy;1;CZE;"ZŠ Svitavy, nám. Míru 73"
+86;e3636f;Gymnázium Zábřeh;Lenka Mádrová;madrlen@email.cz;0;e3636f;praha;aesop:2637;1;nám. Osvobození 20;789 01;Zábřeh;1;CZE;Gymnázium Zábřeh
+87;e4696f;"ZŠ a MŠ Dolní Dunajovice, okres Břeclav";Mgr. Bronislava Trčková;trckovab@zs-dd.cz;0;e4696f;brno;aesop:39479;1;Hlavní 82;691 85;Dolní Dunajovice;1;CZE;"ZŠ a MŠ Dolní Dunajovice, okres Břeclav"
+88;e56904;Cyrilometodějské gymnázium;Veronika Svobodová;schneck@email.cz;0;e56904;brno;aesop:1346;1;Lerchova 63;602 00;Brno;1;CZE;Cyrilometodějské gymnázium
+89;e71931;Gymnázium a Hudební škola hl. m. Prahy;"Luboš Král, Jana Nedbalová";"lubos.kral2@seznam.cz, j.nedbalka@seznam.cz";0;e71931;praha;aesop:41804;1;Komenského náměstí 9;130 00;Praha 3;1;CZE;"Gymnázium a Hudební škola hlavního města Prahy, ZUŠ"
+90;e77892;Gymnázium Jána Chalupku Brezno;Daniel Struhár;daniel.struhar@gmail.com;0;e77892;brno;aesop:2548;0;Štúrova 13;977 01;Brezno;1;SVK;Gymnázium Jána Chalupku Brezno
+92;e8f564;Základní škola Jedna radost;Jindřich Monček;reditel@skolajednaradost.cz;0;e8f564;praha;aesop:138873;1;Školní 73;289 41;Pňov-Předhradí;1;CZE;Základní škola Jedna radost
+91;e8e43c;Gymnázium Kroměříž;Leona Jelínková;jelinkova@gymkrom.cz;0;e8e43c;brno;aesop:476;1;Masarykovo náměstí 496;767 01;Kroměříž;1;CZE;Gymnázium Kroměříž
+94;fb6b5b;15. Zš Plzeň;Mgr. Lenka Prošková;lenka.proskova@seznam.cz;0;fb6b5b;praha;aesop:39015;0;Terezie Brzkové 33-35;318 00;Plzeň;1;CZE;15. Zš Plzeň
+95;fca060;ZŠ Sirotkova;RNDr. Jana Nechvátalová;nechvatalova@zssirotkova.cz;0;fca060;brno;aesop:40901;0;Sirotkova 371/36;616 00;Brno;1;CZE;"ZŠ Sirotkova, Brno"
+96;ffe0ba;Gymnázium Brno – Řečkovice;"Martina Šauerová, Petr Krupka";"tula.hruzka@post.cz, skola@gyrec.cz";0;ffe0ba;brno;aesop:703;0;Terezy Novákové 2;621 00;Brno – Řečkovice;1;CZE;Gymnázium Brno – Řečkovice
+97;ffe40b;Gymnázium Kladno;Marta Sojková;marta.sojkova@gymnasiumkladno.cz;0;ffe40b;praha;aesop:470;1;nám. Edvarda Beneše 1573;272 01;Kladno;1;CZE;Gymnázium Kladno
+98;f023aa;Gymnázium J. Š. Baara;Mgr. Hana Jano;jano@gymdom.cz;0;f023aa;praha;aesop:429;0;Pivovarská 323;344 01;Domažlice;1;CZE;Gymnázium J. Š. Baara
+99;f5c712;ZŠ Květnového vítězství 1554;Martin Holeček;martin.holecek@kvetnak.cz;0;f5c712;praha;aesop:21285;0;Květnového vítězství 1554;149 00;Praha 4 - Jižní Město;1;CZE;ZŠ Květnového vítězství 1554
+110;0f06a9;"ZŠ Brno, Pavlovská 16";Kateřina Cejpková;kcejpkova@seznam.cz;0;0f06a9;brno;aesop:40877;0;Pavlovská 16;623 00;Brno;1;CZE;"ZŠ Brno, Pavlovská 16"
+122;1d1c0a;Gymnázium Kadaň;;;0;1d1c0a;praha;aesop:465;0;5. května 620;432 01;Kadaň;1;CZE;Gymnázium Kadaň
+103;f86e2f;ZŠ a MŠ Bílá Třemešná;Hana Škubníková;hana.skubnikova@zsbt.cz;0;f86e2f;praha;aesop:41336;1;Bílá Třemešná 313;544 72;Bílá Třemešná;1;CZE;ZŠ a MŠ Bílá Třemešná
+123;1ed2c3;Gymnázium Česká Lípa;;;0;1ed2c3;praha;aesop:421;0;Žitavská 2969;470 01;Česká Lípa;1;CZE;Gymnázium Česká Lípa
+100;f50a52;Gymnázium F. X. Šaldy;RNDr. Jana Hrnčířová;"jana.vankova@gfxs.cz, jana.hrncirova@gfxs.cz";0;f50a52;praha;aesop:639;0;Partyzánská 530/3;460 01;Liberec;1;CZE;Gymnázium F. X. Šaldy
+101;f56fc2;ZŠ Gutova;Klára Matějková;klara.matejkova@zsgutova.cz;0;f56fc2;praha;aesop:21215;1;Gutova 39/1987;100 00;Praha 10 - Strašnice;1;CZE;ZŠ Gutova
+102;f7fc60;ZŠ Švehlova;Lucia Miháliková;mihalikova@zssvehlova.cz;0;f7fc60;praha;aesop:21230;0;Švehlova 2900/12;106 00;Praha 10;1;CZE;ZŠ Švehlova
+104;0a79c6;"ZŠ Moravská Třebová, Palackého 1351";Jana Knödlová;j.knodlova@seznam.cz;0;0a79c6;brno;aesop:40141;0;Palackého 1351;571 01;Moravská Třebová;1;CZE;"ZŠ Moravská Třebová, Palackého 1351"
+105;0a861a;Gymnázium Joachima Barranda;Marie Štěpničková;stepnickova.marie@seznam.cz;0;0a861a;praha;aesop:410;0;Talichova 824;266 01;Beroun;1;CZE;Gymnázium Joachima Barranda
+106;0bec28;ZŠ E. Krásnohorské;Karel Klímek;klimek@zseliska.cz;0;0bec28;praha;aesop:40742;0;E. Krásnohorské 3084/8;400 01;Ústí nad Labem;1;CZE;ZŠ E. Krásnohorské
+107;0dba82;Gymnázium;Zuzana Podveská;zuzana.podveska@gkolin.cz;0;0dba82;praha;aesop:473;0;Žižkova 162;280 31;Kolín 3;1;CZE;Gymnázium Kolín
+108;0eec23;ZŠ a MŠ J. A. Komenského;PhDr. Jan Hamerník;j.hamernik@jakomenskeho.cz;0;0eec23;praha;aesop:38631;0;U Dělnického cvičiště 1100/1;169 00;Praha 6 - Břevnov;1;CZE;"ZŠ J. A. Komenského, Praha 6"
+109;0fa91a;ZŠ a MŠ Basic;Lucie Šabatková;sabatkova.lucie@gmail.com;0;0fa91a;brno;aesop:39508;0;Šámalova 2411/10;615 00;Brno - Židenice;1;CZE;ZŠ Basic Brno
+111;00e2fc;Biskupské gymnázium Brno;;;0;00e2fc;brno;aesop:399;;Barvičova 85;602 00;Brno;1;CZE;Biskupské gymnázium Brno
+112;001114;Základní škola;;;0;001114;praha;aesop:37933;;Na Lázni 335;257 65;Čechtice;1;CZE;Základní škola Čechtice
+113;01d4b1;Základní škola;;;0;01d4b1;praha;aesop:21233;;Nad Vodovodem 460/81;108 00;Praha 10 - Malešice;1;CZE;ZŠ Nad Vodovodem
+114;017969;Gymnázium Františka Martina Pelcla;;;0;017969;praha;aesop:638;;Hrdinů odboje 36;516 01;Rychnov nad Kněžnou;1;CZE;Gymnázium F. M. Pelcla
+115;03eb46;"Gymnázium a ZUŠ Šlapanice, p.o.";;;0;03eb46;brno;aesop:2012;;Riegrova 17;664 51;Šlapanice;1;CZE;Gymnázium Šlapanice
+116;041fee;Základní škola;;;0;041fee;brno;aesop:37681;;Oslavická 1800/20;594 01;Velké Meziříčí;1;CZE;"ZŠ Oslavická, Velké Meziříčí"
+117;063b06;Gymnázium;;;0;063b06;brno;aesop:462;;Jana Masaryka 1;586 01;Jihlava;1;CZE;Gymnázium Jihlava
+118;07195d;Základní Škola;;;0;07195d;brno;aesop:40420;;Jamnická 270;738 01;Staré Město;1;CZE;ZŠ Staré Město
+119;1afd81;Gymnázium tř. Kpt. Jaroše;;;0;1afd81;brno;aesop:662;;třída Kapitána Jaroše 14;658 70;Brno;1;CZE;Gymnázium tř. Kapitána Jaroše
+120;1cf2fe;ZŠ Liberec;;;0;1cf2fe;praha;aesop:38082;0;Lesní 575/12;460 01;Liberec;1;CZE;ZŠ Liberec
+121;1c8798;ZŠ nám. Jiřího z Poděbrad;;;0;1c8798;praha;aesop:38538;0;"nám. Jiřího z Poděbrad 7,8/1685";130 00;Praha 3;1;CZE;ZŠ nám. Jiřího z Poděbrad
+127;10d9f4;"ZŠ Brno, Laštůvkova 77, p.o.";;;0;10d9f4;brno;aesop:40885;0;Laštůvkova 920/77;635 00;Brno;1;CZE;"ZŠ Brno, Laštůvkova 77"
+124;1e1d03;Gymnázium Písek;;;0;1e1d03;praha;aesop:519;0;Komenského 89;397 01;Písek;1;CZE;Gymnázium Písek
+125;1fa5a6;Gymnázium Mnichovo Hradiště;;;0;1fa5a6;praha;aesop:495;0;Studentská 895;295 01;Mnichovo Hradiště;1;CZE;Gymnázium Mnichovo Hradiště
+126;1f010d;ZŠ a MŠ Kněžmost;;;0;1f010d;praha;aesop:38863;0;Na Františku 32;294 02;Kněžmost;1;CZE;ZŠ a MŠ Kněžmost
+132;18bcd0;ZŠ Šutka;;;0;18bcd0;praha;aesop:3357;0;Na Šutce 440/28;182 00;Praha 8;1;CZE;ZŠ Šutka
+128;1571fa;Gymnázium mez. a veř. vztahů Praha;;;0;1571fa;praha;aesop:41981;0;Kuncova 1580;155 00;Praha 5;1;CZE;Gymnázium mezinárodních a veřejných vztahů Praha
+130;163502;ZŠ Karla Pokorného;;;0;163502;brno;aesop:41463;0;K. Pokorného 1382/56;708 00;Ostrava-Poruba;1;CZE;ZŠ Karla Pokorného
+131;17a0dd;ZŠ Dolní Kralovice;;;0;17a0dd;praha;aesop:37936;0;Školní 1;257 68;Dolní Kralovice;1;CZE;ZŠ Dolní Kralovice
+129;16d496;ZŠ Brno Královo pole;"";"";0;16d496;brno;aesop:40874;0;Herčíkova 19;61200;Brno - Královo pole;1;CZE;ZŠ Brno Královo pole
+133;19930c;Sunny Canadian International school;;;0;19930c;praha;aesop:40369;0;Straková 522;252 42;Jesenice;1;CZE;Sunny Canadian IS
+134;2a7d6f;ZŠ Vorlina Vlašim;;;0;2a7d6f;praha;aesop:37947;;U Vorliny 1500;258 01;Vlašim;1;CZE;"ZŠ Vorlina Vlašim, příspěvková organizace"
+135;2b4b68;"Gymnázium, Olomouc-Hejčín";;;0;2b4b68;praha;aesop:705;1;Tomkova 45;779 00;Olomouc;1;CZE;"Gymnázium, Olomouc-Hejčín"
+136;d862f5;Gymnázium Rožnov p. R.;Mgr. Kamila Trinkewitzová;k.trink@seznam.cz;0;d862f5;brno;aesop:542;0;Koryčanské Paseky 1725;756 61;Rožnov pod Radhoštěm;1;CZE;Gymnázium Rožnov p. R.
+137;a8f34d;Gymnázium Blansko;Jana Kocmanová;jkgymbk@seznam.cz;0;a8f34d;brno;aesop:412;0;Seifertova 13;678 01;Blansko;1;CZE;Gymnázium Blansko
+138;e096d0;Klasické a španělské gymnázium Brno-Bystrc;Ladislav Dvořák;ladislav.dvorak@gyby.cz;0;e096d0;brno;aesop:714;0;Vejrostova 2;635 00;Brno;1;CZE;Klasické a špan. gymnázium Brno-Bystrc
+139;2c8636;ZŠ Měšťanská;;;0;2c8636;brno;aesop:40913;0;Měšťanská 459/21;620 00;Brno;1;CZE;ZŠ Měšťanská

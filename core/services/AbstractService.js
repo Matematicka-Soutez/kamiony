@@ -5,7 +5,7 @@ const traverse = require('traverse')
 const _ = require('lodash')
 const appErrors = require('../errors/application')
 const logger = require('../logger').serviceLogger
-const config = require('../../config')
+const config = require('../../src/config')
 const validators = require('../../api/src/utils/validators')
 
 let newrelic
@@ -16,9 +16,8 @@ if (config.newRelic.licenseKey) {
 const sensitiveAttributes = ['password']
 
 module.exports = class AbstractService {
-  constructor(state = {}) {
+  constructor() {
     this.uuid = shortId.generate()
-    this.competition = state.competition
   }
 
   async execute(inputData) {

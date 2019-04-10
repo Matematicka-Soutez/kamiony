@@ -3,7 +3,7 @@
 
 const cluster = require('cluster')
 const bunyan = require('bunyan')
-const config = require('../config')
+const config = require('../src/config')
 
 const suffix = cluster.isMaster ? 'master' : 'worker'
 
@@ -27,7 +27,7 @@ const errorLogger = bunyan.createLogger({
   streams: getStreamsByEnvironment(),
 })
 
-function CustomStream() {}
+function CustomStream() { }
 CustomStream.prototype.write = function write(rec) {
   if (rec.err && rec.err.stack) {
     // Unexpected errors
