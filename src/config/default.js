@@ -1,7 +1,8 @@
 /* eslint-disable no-process-env */
 'use strict'
 
-const pkg = require('../package')
+const pkg = require('../../package')
+const gameEnums = require('../utils/enums')
 
 module.exports = env => ({
   env,
@@ -88,4 +89,16 @@ module.exports = env => ({
     schoolSourceUrl: 'https://ovvp.mff.cuni.cz/out/skoly.csv',
   },
   scanningPasswords: ['zlutybagr', 'zelenaopice'],
+  game: {
+    problemPrizeMoney: 50,
+    problemPrizePetrolVolume: 2,
+    initialTeamState: {
+      cityId: gameEnums.CITIES.PRAHA.id,
+      capacityId: gameEnums.CAPACITIES.BASIC.id,
+      rangeCoefficientId: gameEnums.RANGE_COEFFICIENTS.BASIC.id,
+      goodsVolume: gameEnums.CAPACITIES.BASIC.id,
+      petrolVolume: 0,
+      balance: 0,
+    },
+  },
 })

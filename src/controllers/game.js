@@ -1,16 +1,16 @@
 'use strict'
 
+const appErrors = require('../../core/errors/application')
+const responseErrors = require('../../core/errors/response')
 const InitGameService = require('../services/game/InitGame')
 const GetTimerService = require('../services/game/GetTimer')
 const GetVenuesByGameService = require('../services/game/GetVenues')
 const GetResultsService = require('../services/game/GetResults')
-const appErrors = require('../../../core/errors/application')
-const responseErrors = require('../../../core/errors/response')
 
 async function init(ctx) {
   try {
     ctx.body = await new InitGameService(ctx.state).execute({
-      gameId: ctx.params.gameId
+      gameCode: ctx.params.gameCode,
     })
   } catch (err) {
     if (err instanceof appErrors.ValidationError) {
@@ -26,7 +26,7 @@ async function init(ctx) {
 async function timer(ctx) {
   try {
     ctx.body = await new GetTimerService(ctx.state).execute({
-      gameId: ctx.params.gameId
+      gameCode: ctx.params.gameCode,
     })
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
@@ -39,7 +39,7 @@ async function timer(ctx) {
 async function venues(ctx) {
   try {
     ctx.body = await new GetVenuesByGameService(ctx.state).execute({
-      gameId: ctx.params.gameId
+      gameCode: ctx.params.gameCode,
     })
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
@@ -52,7 +52,7 @@ async function venues(ctx) {
 async function results(ctx) {
   try {
     ctx.body = await new GetResultsService(ctx.state).execute({
-      gameId: ctx.params.gameId
+      gameCode: ctx.params.gameCode,
     })
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
@@ -64,6 +64,7 @@ async function results(ctx) {
 
 
 module.exports = {
+  init,
   timer,
   venues,
   results,

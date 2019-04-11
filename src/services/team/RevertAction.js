@@ -22,7 +22,7 @@ module.exports = class RevertActionService extends TransactionalService {
       this.data.teamId,
       dbTransaction,
     )
-    if (!lastAction) {
+    if (lastAction.isDefault) {
       throw new appErrors.CannotBeDoneError('Žádná předchozí změna neexistuje.')
     }
     await repository.revertTeamActionById(lastAction.id, dbTransaction)

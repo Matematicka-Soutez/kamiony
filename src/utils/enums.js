@@ -34,7 +34,7 @@ const ACTIONS = enumize({
   PURCHASE: { id: 2, name: 'purchase' },
   UPGRADE_CAPACITY: { id: 3, name: 'upgrade capacity' },
   UPGRADE_RANGE: { id: 4, name: 'upgrade range' },
-  MOVE: { id: 5, name: 'move to different city' }
+  MOVE: { id: 5, name: 'move to different city' },
 })
 
 module.exports = {

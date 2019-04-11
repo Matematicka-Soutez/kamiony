@@ -1,9 +1,9 @@
 'use strict'
 
 const Router = require('koa-router')
-const config = require('../config')
-const { handleErrors, handleNotFound } = require('../middleware/errors')
-const responseErrors = require('../../core/errors/response')
+const responseErrors = require('../core/errors/response')
+const config = require('./config')
+const { handleErrors, handleNotFound } = require('./middleware/errors')
 const game = require('./controllers/game')
 const team = require('./controllers/team')
 const problem = require('./controllers/problem')
@@ -22,18 +22,16 @@ if (config.env === 'production' || config.env === 'staging') {
 }
 
 // Intentionally public
-router.get('/api/game/:gameId/results', game.results)
-router.get('/api/game/:gameId/timer', game.timer)
-router.get('/api/game/:gameId/venues', game.venues)
+router.get('/api/games/:gameCode/results', game.results)
+router.get('/api/games/:gameCode/timer', game.timer)
+router.get('/api/games/:gameCode/venues', game.venues)
 
 // Unintentionally public
 // TODO: add authorization
-router.post('/api/game/:gameId/init', game.init)
-router.post('/api/game/:gameId/team/:teamId/trade', team.trade)
-router.post('/api/game/:gameId/team/:teamId/move', team.move)
-router.post('/api/game/:gameId/team/:teamId/upgrade', team.upgrade)
-router.put('/api/game/:gameId/team/:teamId/revert-change', team.revertChange)
-router.put('/api/game/:gameId/team/:teamId/solutions', problem.updateTeamSolutions)
+router.post('/api/games/:gameCode/init', game.init)
+router.post('/api/games/:gameCode/teams/:teamId/actions', team.performAction)
+router.delete('/api/games/:gameCode/teams/:teamId/actions', team.revertAction)
+router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
 
 router.use(handleNotFound)
 

@@ -5,23 +5,18 @@ module.exports = (sequelize, DataTypes) => {
     problemNumber: { type: DataTypes.INTEGER, allowNull: false, field: 'problem_number' },
     solved: { type: DataTypes.BOOLEAN, allowNull: false, default: false, field: 'solved' },
   }, {
-    tableName: 'TeamSolutionChanges',
-  })
+      tableName: 'TeamSolutionChanges',
+    })
 
   TeamSolutionChange.associate = models => {
-    TeamSolutionChange.belongsTo(models.Competition, {
-      as: 'competition',
-      foreignKey: { name: 'competitionId', field: 'competition_id' },
+    TeamSolutionChange.belongsTo(models.Game, {
+      as: 'game',
+      foreignKey: { name: 'gameId', field: 'game_id' },
       onDelete: 'RESTRICT',
     })
     TeamSolutionChange.belongsTo(models.Team, {
       as: 'team',
       foreignKey: { name: 'teamId', field: 'team_id' },
-      onDelete: 'RESTRICT',
-    })
-    TeamSolutionChange.belongsTo(models.Organizer, {
-      as: 'author',
-      foreignKey: { name: 'createdBy', field: 'created_by' },
       onDelete: 'RESTRICT',
     })
   }

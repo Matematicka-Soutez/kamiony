@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING, allowNull: false, field: 'name' },
     defaultCapacity: { type: DataTypes.INTEGER, allowNull: true, field: 'default_capacity' },
   }, {
-    tableName: 'Rooms',
-  })
+      tableName: 'Rooms',
+    })
 
   Room.associate = models => {
-    Room.belongsToMany(models.CompetitionVenue, {
-      as: 'competitionVenues',
-      through: models.CompetitionVenueRoom,
+    Room.belongsToMany(models.GameVenue, {
+      as: 'gameVenues',
+      through: models.GameVenueRoom,
       foreignKey: { name: 'roomId', field: 'room_id' },
       onDelete: 'RESTRICT',
     })

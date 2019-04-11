@@ -1,22 +1,16 @@
 'use strict'
 
-const appErrors = require('../../../../core/errors/application')
-const responseErrors = require('../../../../core/errors/response')
+const appErrors = require('../../core/errors/application')
+const responseErrors = require('../../core/errors/response')
 const PerformActionService = require('../services/team/PerformAction')
-const RevertActionService = require('./services/RevertAction')
-
-
-module.exports = {
-  performAction,
-  revertAction,
-}
+const RevertActionService = require('../services/team/RevertAction')
 
 async function performAction(ctx) {
   try {
     ctx.body = await new PerformActionService(ctx.state)
       .execute({
-        gameId: ctx.params.gameId,
-        teamId: parseInt(ctx.request.body.teamId, 10),
+        gameCode: ctx.params.gameCode,
+        teamId: parseInt(ctx.params.teamId, 10),
         actionId: parseInt(ctx.request.body.actionId, 10),
         actionValue: parseFloat(ctx.request.body.actionValue),
       })
@@ -35,7 +29,7 @@ async function revertAction(ctx) {
   try {
     ctx.body = await new RevertActionService(ctx.state)
       .execute({
-        gameId: ctx.params.gameId,
+        gameCode: ctx.params.gameCode,
         teamId: parseInt(ctx.request.body.teamId, 10),
       })
   } catch (err) {
@@ -47,4 +41,9 @@ async function revertAction(ctx) {
     }
     throw err
   }
+}
+
+module.exports = {
+  performAction,
+  revertAction,
 }

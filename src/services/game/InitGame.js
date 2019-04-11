@@ -1,10 +1,10 @@
 'use strict'
 
 const _ = require('lodash')
-const repository = require('../repository')
-const gameConfig = require('../../../config.json')
-const TransactionalService = require('./../../../../../core/services/TransactionalService')
-const venueRepository = require('./../../../../../api/src/repositories/venue')
+const config = require('../../config')
+const gameRepository = require('../../repositories/game')
+const TransactionalService = require('./../../../core/services/TransactionalService')
+const venueRepository = require('./../../repositories/venue')
 
 module.exports = class InitGameService extends TransactionalService {
   schema() {

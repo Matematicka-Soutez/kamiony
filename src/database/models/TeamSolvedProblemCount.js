@@ -4,16 +4,16 @@ module.exports = (sequelize, DataTypes) => {
   const TeamSolvedProblemCount = sequelize.define('TeamSolvedProblemCount', {
     solvedProblems: { type: DataTypes.INTEGER, allowNull: false, field: 'solved_problems' },
     teamId: { type: DataTypes.INTEGER, allowNull: false, field: 'team_id', primaryKey: true },
-    competitionId: { type: DataTypes.INTEGER, allowNull: false, field: 'competition_id', primaryKey: true },
+    gameId: { type: DataTypes.INTEGER, allowNull: false, field: 'game_id', primaryKey: true },
   }, {
     tableName: 'TeamSolvedProblemCounts',
     timestamps: false,
   })
 
   TeamSolvedProblemCount.associate = models => {
-    TeamSolvedProblemCount.belongsTo(models.Competition, {
-      as: 'competition',
-      foreignKey: { name: 'competitionId', field: 'competition_id' },
+    TeamSolvedProblemCount.belongsTo(models.Game, {
+      as: 'game',
+      foreignKey: { name: 'gameId', field: 'game_id' },
       onDelete: 'RESTRICT',
     })
     TeamSolvedProblemCount.belongsTo(models.Team, {
@@ -29,11 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         CREATE VIEW "TeamSolvedProblemCounts" AS
           SELECT
             team_id         AS "team_id",
-            competition_id  AS "competition_id",
+            game_id         AS "game_id",
             count(solved)   AS "solved_problems"
           FROM "TeamSolutions"
           WHERE solved
-          GROUP BY team_id, competition_id;
+          GROUP BY team_id, game_id;
         `, { logging: options.logging })
     }
     return true

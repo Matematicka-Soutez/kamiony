@@ -7,7 +7,9 @@ module.exports = class GetTimerService extends AbstractService {
   schema() {
     return {
       type: 'Object',
-      properties: {},
+      properties: {
+        gameId: { type: 'string', required: true, minLength: 6, maxLength: 8 },
+      },
     }
   }
 

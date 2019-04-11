@@ -1,31 +1,11 @@
 'use strict'
 
-Promise = require('bluebird')
 const appErrors = require('../../core/errors/application')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
-async function findById(id, options = {}, dbTransaction) {
-  const include = []
-  if (options.includeSchool) {
-    include.push({
-      model: db.School,
-      as: 'school',
-      attributes: ['id', 'fullName'],
-      required: true,
-    })
-  }
-  if (options.includeTeamMembers) {
-    include.push({
-      model: db.TeamMember,
-      as: 'members',
-      required: false,
-    })
-  }
-  const team = await db.Team.findById(id, {
-    include,
-    transaction: dbTransaction,
-  })
+async function findById(id, dbTransaction) {
+  const team = await db.Team.findById(id, { transaction: dbTransaction })
   if (!team) {
     throw new appErrors.NotFoundError()
   }
@@ -43,10 +23,15 @@ async function findByName(name, dbTransaction) {
   return parsers.parseTeam(team)
 }
 
-async function findByNumberAndCompetition(number, competitionId, dbTransaction) {
-  // TODO: Actually search by competition
+async function findByNumberAndGame(number, gameId, dbTransaction) {
   const team = await db.Team.findOne({
     where: { number },
+    include: [{
+      model: db.GameVenue,
+      as: 'gameVenue',
+      required: true,
+      where: { gameId },
+    }],
     transaction: dbTransaction,
   })
   if (!team) {
@@ -55,12 +40,12 @@ async function findByNumberAndCompetition(number, competitionId, dbTransaction) 
   return parsers.parseTeam(team)
 }
 
-async function findAllByVenue(competitionId, dbTransaction) {
-  if (!competitionId) {
-    throw new Error('competitionId is required')
+async function findAllByVenue(gameId, dbTransaction) {
+  if (!gameId) {
+    throw new Error('gameId is required')
   }
-  const venues = await db.CompetitionVenue.findAll({
-    where: { competitionId },
+  const venues = await db.GameVenue.findAll({
+    where: { gameId },
     include: [{
       model: db.Venue,
       as: 'venue',
@@ -70,12 +55,6 @@ async function findAllByVenue(competitionId, dbTransaction) {
       as: 'teams',
       attributes: ['id', 'name'],
       required: false,
-      include: [{
-        model: db.School,
-        as: 'school',
-        attributes: ['id', 'fullName'],
-        required: false,
-      }],
     }],
     order: [
       db.sequelize.literal('"venue"."name" DESC'),
@@ -83,17 +62,11 @@ async function findAllByVenue(competitionId, dbTransaction) {
     ],
     transaction: dbTransaction,
   })
-  return parsers.parseCompetitionVenues(venues)
+  return parsers.parseGameVenues(venues)
 }
 
-async function create(team, members, dbTransaction) {
+async function create(team, dbTransaction) {
   const createdTeam = await db.Team.create(team, { transaction: dbTransaction })
-  if (members && members.length > 0) {
-    createdTeam.members = await db.TeamMember.bulkCreate(members.map(member => ({
-      ...member,
-      teamId: createdTeam.id,
-    })), { transaction: dbTransaction })
-  }
   return parsers.parseTeam(createdTeam)
 }
 
@@ -105,23 +78,11 @@ async function update(id, data, dbTransaction) {
   return parsers.parseTeam(team)
 }
 
-function bulkUpdate(updates, dbTransaction) {
-  const requests = updates.map(data => db.Team.update(
-    data,
-    {
-      where: { id: data.id },
-      transaction: dbTransaction,
-    },
-  ))
-  return Promise.all(requests)
-}
-
 module.exports = {
   findById,
   findByName,
-  findByNumberAndCompetition,
+  findByNumberAndGame,
   findAllByVenue,
   create,
   update,
-  bulkUpdate,
 }

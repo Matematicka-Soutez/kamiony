@@ -1,21 +1,22 @@
 'use strict'
 
+const appErrors = require('../../core/errors/application')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
-async function findCompetitionVenues(competitionId, dbTransaction) {
-  if (!competitionId) {
-    throw new Error('competitionId is required')
+async function findGameVenues(gameId, dbTransaction) {
+  if (!gameId) {
+    throw new Error('gameId is required')
   }
-  const venues = await db.CompetitionVenue.findAll({
-    where: { competitionId },
+  const venues = await db.GameVenue.findAll({
+    where: { gameId },
     include: [{
       model: db.Venue,
       as: 'venue',
       required: true,
     }, {
-      model: db.CompetitionVenueRoom,
-      as: 'cvrooms',
+      model: db.GameVenueRoom,
+      as: 'gvrooms',
       required: false,
       include: [{
         model: db.Team,
@@ -33,15 +34,15 @@ async function findCompetitionVenues(competitionId, dbTransaction) {
     }],
     order: [
       db.sequelize.literal('"venue"."name" DESC'),
-      db.sequelize.literal('"cvrooms->teams"."number" ASC'),
+      db.sequelize.literal('"gvrooms->teams"."number" ASC'),
     ],
     transaction: dbTransaction,
   })
-  return parsers.parseCompetitionVenues(venues)
+  return parsers.parseGameVenues(venues)
 }
 
-async function findCompetitionVenueById(id, dbTransaction) {
-  const venue = await db.CompetitionVenue.findById(id, {
+async function findGameVenueById(id, dbTransaction) {
+  const venue = await db.GameVenue.findById(id, {
     include: [{
       model: db.Team,
       as: 'teams',
@@ -49,10 +50,13 @@ async function findCompetitionVenueById(id, dbTransaction) {
     }],
     transaction: dbTransaction,
   })
-  return parsers.parseCompetitionVenue(venue)
+  if (!venue) {
+    throw new appErrors.NotFoundError()
+  }
+  return parsers.parseGameVenue(venue)
 }
 
 module.exports = {
-  findCompetitionVenues,
-  findCompetitionVenueById,
+  findGameVenues,
+  findGameVenueById,
 }

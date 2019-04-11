@@ -6,7 +6,7 @@ const config = require('../../config')
 const teamSolutionRepository = require('../../repositories/teamSolution')
 const teamRepository = require('../../repositories/team')
 
-module.exports = class UpdateTeamSolutionService extends TransactionalService {
+module.exports = class UpdateTeamSolutionsService extends TransactionalService {
   schema() {
     return {
       type: 'Object',
@@ -30,7 +30,7 @@ module.exports = class UpdateTeamSolutionService extends TransactionalService {
       dbTransaction,
     )
     const teamSolution = await teamSolutionRepository.createTeamSolutionChange({
-      competitionId: this.competition.id,
+      gameId: this.data.gameId,
       teamId: team.id,
       problemNumber: this.data.problemNumber,
       createdBy: null,

@@ -1,8 +1,8 @@
 'use strict'
 
+const appErrors = require('../../core/errors/application')
+const responseErrors = require('../../core/errors/response')
 const UpdateTeamSolutionsService = require('../services/problem/UpdateTeamSolutions')
-const appErrors = require('../../../../core/errors/application')
-const responseErrors = require('../../../../core/errors/response')
 
 async function updateTeamSolutions(ctx) {
   try {
