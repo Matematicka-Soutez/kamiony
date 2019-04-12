@@ -1,11 +1,9 @@
-# MaSo - Matematická Soutěž
+# MaSo - Kamiony backend
 
-[![Build Status](https://travis-ci.org/snEk42/MaSo.svg?branch=master)](https://travis-ci.org/snEk42/MaSo)
+[![Build Status](https://travis-ci.org/snEk42/kamiony-api.svg?branch=master)](https://travis-ci.org/snEk42/kamiony-api)
 
 Web application automating processes around MaSo (math competition) preparation and organization.
 Competition description available at <http://maso.mff.cuni.cz> (czech only).
-
-![homepage image](header.png)
 
 ## Development setup
 
@@ -18,10 +16,10 @@ If you are new to Node.js development here is [detailed setup](./docs/linux-setu
 
 ### Setup
 
-Clone Maso repository
+Clone Kamiony repository
 
 ```bash
-git clone https://github.com/Matematicka-Soutez/Web.git
+git clone https://github.com/snEk42/kamiony-api.git
 ```
 
 Install packages
@@ -51,6 +49,6 @@ npm run tests
 ## Contributing
 
 We're preparing this project to be contributor friendly. Unfortunately it's not the case yet,
-but if you're interested already, please ping us at maso-soutez@googlegroups.com. You don't
+but if you're interested already, please ping us at maso@mff.cuni.cz. You don't
 even have to be a developer, we seek all people interested in math and additional ways of
 educating children.

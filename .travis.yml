@@ -1,15 +1,15 @@
 sudo: required
 language: node_js
 node_js:
-- 8.11
+- 11.14
 before_install:
 - npm i -g npm@$(node -p "require('./package').engines.npm")
 before_script:
-  - psql -c 'create database "maso-test";' -U postgres
+  - psql -c 'create database "kamiony-test";' -U postgres
 script:
 - make lint
 # - make security-test
-- make coverage
+# - make coverage
 env:
   global:
   - CXX=g++-5
@@ -33,6 +33,6 @@ deploy:
   api_key:
     secure: UNYh4sqai1P40Ky8WfCvRmlACVjTOixteu0MIlXfV0/XavghchjLpUGYGVUj4IOUbUGYONAPiQ5gCBvHRQkLQ3TRTGN9TcBLM9Whiyk+4XcCZkj04VR60Fo1wzLDxU2AG5fFdhRGpdjl/TDVYmw8D7yjMM8WHxNzEbpq2EieDHzSWbWpj5UYHvirXO9vB5xEOrCgC5hLuaiE7PRGMzJvJs3WDhBp7043RVrMWsH1XEC2ZsOdMH0w0Qi1Zqi/5wQex+itYify1rnlZqQ9bfxEvOdMxXOnmibAVNld7AKfgAWmQU5IimnISV5K+X4E7VJgkTYTTV2mHXa5U2D4AbEldmaPXj2VPLoyd+4GKzLpa+n2bD+RhOnvbNJyRT503iz48zqEt2R1GBBYPrwnlGTwCZGAMkbfqj9zffWTa9OCQFPNI0KExhFZ4JPI5ooKos6vuWXOWq1yHo0Tt0frKl99c2wHA6q0yebuyV59Nk/ocxP271XugkKJpo6Hx/mbPQmAPVjNfHNyNdiGCye5XE5BbObdoOW10prPrh0YARQTUVmBm42zM0NQy0mOGNZgB8+iVjxTXqq6haJvtLTbZk4EcOC3Dsl7yLsrRK2jKt3YKtfKWO9Tl+K66VRIDyt0m/V+GNAp7wXEtigpe6vYi/KXdGlO8G+pIdM25S7m2lj6yDS7nuvrc=
   app:
-    development: maso-development
+    development: kamiony
   on:
-    repo: snEk42/MaSo
+    repo: snEk42/kamiony-api

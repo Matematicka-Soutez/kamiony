@@ -1,2 +1,1 @@
-web: node api/src/cluster.js
-worker: node worker/index.js
+web: node src/cluster.js
