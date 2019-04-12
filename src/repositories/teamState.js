@@ -4,6 +4,10 @@ const appErrors = require('../../core/errors/application')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
+function getResults() {
+  throw new Error('Not implemented yet')
+}
+
 async function getCurrent(teamId, gameId, dbTransaction) {
   const teamState = await db.TeamState.findOne({
     where: { teamId, gameId },
@@ -21,5 +25,6 @@ async function getCurrent(teamId, gameId, dbTransaction) {
 }
 
 module.exports = {
+  getResults,
   getCurrent,
 }

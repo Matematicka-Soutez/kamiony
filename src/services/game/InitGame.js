@@ -2,6 +2,8 @@
 
 const _ = require('lodash')
 const config = require('../../config')
+const gameEnums = require('../../utils/enums')
+const teamActionRepository = require('../../repositories/teamAction')
 const gameRepository = require('../../repositories/game')
 const TransactionalService = require('./../../../core/services/TransactionalService')
 const venueRepository = require('./../../repositories/venue')
@@ -11,25 +13,25 @@ module.exports = class InitGameService extends TransactionalService {
     return {
       type: 'Object',
       properties: {
-        organizerId: { type: 'integer', required: true, min: 1 },
+        gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
       },
     }
   }
 
   async run() {
+    const { gameCode } = this.data
     const dbTransaction = await this.createOrGetTransaction()
-    const venues = await venueRepository.findCompetitionVenues(this.competition.id, dbTransaction)
+    const game = await gameRepository.getByCode(gameCode, dbTransaction)
+    const venues = await venueRepository.findGameVenues(game.id, dbTransaction)
     const teams = _.filter(
       _.flatten(_.map(venues, 'teams')),
       ['arrived', true],
     )
-    await repository.clearGameData(this.competition.id, dbTransaction)
-    const defaults = generateDefaults(this.competition.id, teams)
-    const tournament = await repository.createTournament(defaults.tournament(), dbTransaction)
-    await Promise.all([
-      repository.createTournamentStrategies(defaults.strategies(tournament.id), dbTransaction),
-      repository.createTeamScores(defaults.scores(tournament.id), dbTransaction),
-    ])
+    await gameRepository.clearData(game.id, dbTransaction)
+    const teamActions = generateTeamActions(game, teams)
+    await teamActionRepository.bulkCreate(teamActions, dbTransaction)
+    // TODO: set initial map
+    // TODO: set initial team states
     return {
       result: 'Initialization successful.',
       teamsEnrolled: teams.length,
@@ -37,30 +39,11 @@ module.exports = class InitGameService extends TransactionalService {
   }
 }
 
-function generateDefaults(competitionId, teams) {
-  return {
-    tournament: () => ({
-      competitionId,
-      number: 0,
-      mistakeRate: 0,
-      start: new Date().toDateString(),
-      end: new Date().toDateString(),
-    }),
-    scores: tournamentId => teams.map(team => ({
-      competitionId,
-      tournamentId,
-      teamId: team.id,
-      score: 0,
-    })),
-    strategies: tournamentId => [{
-      competitionId,
-      tournamentId,
-      strategy: gameConfig.game.defaultStrategy,
-      teamCount: teams.length,
-      profitSum: 0,
-      profitMin: 0,
-      profitMax: 0,
-      profitMedian: 0,
-    }],
-  }
+function generateTeamActions(game, teams) {
+  return teams.map(team => _.assign({
+    gameId: game.id,
+    teamId: team.id,
+    actionId: gameEnums.ACTIONS.MOVE.id,
+    isDefault: true,
+  }, config.game.initialTeamState))
 }

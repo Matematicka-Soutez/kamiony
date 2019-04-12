@@ -96,7 +96,7 @@ module.exports = env => ({
       cityId: gameEnums.CITIES.PRAHA.id,
       capacityId: gameEnums.CAPACITIES.BASIC.id,
       rangeCoefficientId: gameEnums.RANGE_COEFFICIENTS.BASIC.id,
-      goodsVolume: gameEnums.CAPACITIES.BASIC.id,
+      goodsVolume: gameEnums.CAPACITIES.BASIC.value,
       petrolVolume: 0,
       balance: 0,
     },

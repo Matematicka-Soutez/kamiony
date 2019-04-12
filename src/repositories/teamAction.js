@@ -17,8 +17,8 @@ async function getLatest(teamId, gameId, dbTransaction) {
   return parsers.parseTeamAction(teamAction)
 }
 
-async function revertById(teamActionId, dbTransaction) {
-  const teamAction = await db.TeamActions.update(
+function revertById(teamActionId, dbTransaction) {
+  return db.TeamActions.update(
     { reverted: true },
     {
       where: { id: teamActionId },
@@ -26,7 +26,6 @@ async function revertById(teamActionId, dbTransaction) {
       returning: true,
     },
   )
-  return parsers.parseTeamAction(teamAction)
 }
 
 module.exports = {

@@ -1,6 +1,7 @@
 'use strict'
 
 const teamStateRepository = require('../../repositories/teamState')
+const gameRepository = require('../../repositories/game')
 const AbstractService = require('./../../../core/services/AbstractService')
 
 module.exports = class GetResultsService extends AbstractService {
@@ -8,13 +9,14 @@ module.exports = class GetResultsService extends AbstractService {
     return {
       type: 'Object',
       properties: {
-        gameId: { type: 'string', required: true, minLength: 6, maxLength: 8 },
+        gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
       },
     }
   }
 
   async run() {
-    const results = await teamStateRepository.getResults(this.data.gameId)
+    const game = await gameRepository.getByCode(this.data.gameCode)
+    const results = await teamStateRepository.getResults(game.id)
     return results
   }
 }
