@@ -92,7 +92,7 @@ module.exports = env => ({
   game: {
     problemPrizeMoney: 30,
     problemPrizePetrolVolume: 2,
-    exchangeRateSensitivity: 90,
+    exchangeRateSensitivity: 30,
     initialTeamState: {
       cityId: gameEnums.CITIES.PRAHA.id,
       capacityId: gameEnums.CAPACITIES.BASIC.id,
