@@ -9,6 +9,8 @@ const teamStateRepository = require('../../repositories/teamState')
 const gameRepository = require('../../repositories/game')
 const gameEnums = require('../../utils/enums')
 const mapUtils = require('../../utils/map')
+const firebase = require('../../firebase')
+const config = require('../../config')
 
 module.exports = class PerformActionService extends TransactionalService {
   schema() {
@@ -17,6 +19,8 @@ module.exports = class PerformActionService extends TransactionalService {
       properties: {
         gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
         teamId: { type: 'integer', required: true, min: 1 },
+        actionId: { type: 'integer', required: true, enum: gameEnums.ACTIONS.idsAsEnum },
+        actionValue: { type: 'integer', required: true, min: 1, max: 30 },
       },
       oneOf: [{
         properties: {
@@ -43,20 +47,21 @@ module.exports = class PerformActionService extends TransactionalService {
   }
 
   async run() {
-    const { teamId, gameCode, actionId } = this.data
+    const { teamId, gameCode, actionId, actionValue } = this.data
+    const dbTransaction = await this.createOrGetTransaction()
+    const game = await gameRepository.getByCode(gameCode, dbTransaction)
     let map = {}
+    let prices = {}
     if ([
       gameEnums.ACTIONS.SELL.id,
       gameEnums.ACTIONS.PURCHASE.id,
       gameEnums.ACTIONS.MOVE.id,
     ].includes(actionId)) {
-      // TODO: read map
-      map = {}
+      map = (await firebase.collection('maps').doc(gameCode).get()).data()
+      prices = (await firebase.collection('prices').doc(gameCode).get()).data()
     }
-    const dbTransaction = await this.createOrGetTransaction()
-    const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    const teamAction = prepareTeamAction(game.id, map, this.data)
     const currentTeamState = await teamStateRepository.getCurrent(teamId, game.id, dbTransaction)
+    const teamAction = prepareTeamAction(currentTeamState, map, prices, this.data)
     validateTeamAction(teamAction, currentTeamState)
     await teamActionRepository.create(teamAction, dbTransaction)
     const newTeamState = await teamStateRepository.getCurrent(teamId, game.id, dbTransaction)
@@ -64,39 +69,47 @@ module.exports = class PerformActionService extends TransactionalService {
       gameEnums.ACTIONS.SELL.id,
       gameEnums.ACTIONS.PURCHASE.id,
     ].includes(actionId)) {
-      // TODO: update map
+      const priceChangeDirection = actionId === gameEnums.ACTIONS.SELL.id ? -1 : 1
+      const cityPriceChange = actionValue / config.game.exchangeRateSensitivity
+      prices = (await firebase.collection('prices').doc(gameCode).get()).data()
+      const purchase = prices[newTeamState.cityId].purchase + (priceChangeDirection * cityPriceChange)
+      const sell = prices[newTeamState.cityId].sell + (priceChangeDirection * cityPriceChange)
+      await firebase.collection('prices').doc(gameCode).update({
+        [`${newTeamState.cityId}.purchase`]: purchase,
+        [`${newTeamState.cityId}.sell`]: sell,
+      })
     }
-    // TODO: update team in firebase
+    await firebase.collection('teams').doc(`${gameCode}-${teamId}`).update(newTeamState)
     return newTeamState
   }
 }
 
-function prepareTeamAction(lastAction, map, { actionId, actionValue }) {
+function prepareTeamAction(teamState, map, prices, { actionId, actionValue }) {
   switch (actionId) {
     case gameEnums.ACTIONS.SELL.id:
       return _.assign(
         { actionId },
-        _.pick(lastAction, ['teamId', 'gameId', 'cityId', 'capacityId', 'rangeCoefficientId']),
+        _.pick(teamState, ['teamId', 'gameId', 'cityId', 'capacityId', 'rangeCoefficientId']),
         {
           goodsVolume: -actionValue,
           petrolVolume: 0,
-          balance: getCityPrices(lastAction.cityId, map).sell * actionValue,
+          balance: Math.round(prices[teamState.cityId].sell) * actionValue,
         },
       )
     case gameEnums.ACTIONS.PURCHASE.id:
       return _.assign(
         { actionId },
-        _.pick(lastAction, ['teamId', 'gameId', 'cityId', 'capacityId', 'rangeCoefficientId']),
+        _.pick(teamState, ['teamId', 'gameId', 'cityId', 'capacityId', 'rangeCoefficientId']),
         {
           goodsVolume: actionValue,
           petrolVolume: 0,
-          balance: getCityPrices(lastAction.cityId, map).sell * -actionValue,
+          balance: Math.round(prices[teamState.cityId].purchase) * -actionValue,
         },
       )
     case gameEnums.ACTIONS.UPGRADE_CAPACITY.id:
       return _.assign(
         { actionId },
-        _.pick(lastAction, ['teamId', 'gameId', 'cityId', 'rangeCoefficientId']),
+        _.pick(teamState, ['teamId', 'gameId', 'cityId', 'rangeCoefficientId']),
         {
           capacityId: actionValue,
           goodsVolume: 0,
@@ -107,9 +120,9 @@ function prepareTeamAction(lastAction, map, { actionId, actionValue }) {
     case gameEnums.ACTIONS.UPGRADE_RANGE.id:
       return _.assign(
         { actionId },
-        _.pick(lastAction, ['teamId', 'gameId', 'cityId', 'capacityId']),
+        _.pick(teamState, ['teamId', 'gameId', 'cityId', 'capacityId']),
         {
-          capacityId: actionValue,
+          rangeCoefficientId: actionValue,
           goodsVolume: 0,
           petrolVolume: 0,
           balance: -gameEnums.RANGE_COEFFICIENTS.ids[actionValue].price,
@@ -118,11 +131,11 @@ function prepareTeamAction(lastAction, map, { actionId, actionValue }) {
     case gameEnums.ACTIONS.MOVE.id:
       return _.assign(
         { actionId },
-        _.pick(lastAction, ['teamId', 'gameId', 'capacityId', 'rangeCoefficientId']),
+        _.pick(teamState, ['teamId', 'gameId', 'capacityId', 'rangeCoefficientId']),
         {
           cityId: actionValue,
           goodsVolume: 0,
-          petrolVolume: -getDistance(lastAction.cityId, actionValue, map),
+          petrolVolume: -getDistance(teamState.cityId, actionValue, map),
           balance: 0,
         },
       )
@@ -131,30 +144,25 @@ function prepareTeamAction(lastAction, map, { actionId, actionValue }) {
   }
 }
 
-function getCityPrices(cityId, map) {
-  const city = map.vertices.find(vertex => vertex.id === cityId) || { price: 1000 }
-  return city.price
-}
-
 function validateTeamAction(teamAction, teamState) {
   const newState = applyAction(teamAction, teamState)
-  if (newState.balance < 0) {
-    throw new appErrors.CannotBeDoneError('Nemate dostatek penez.')
-  }
-  if (newState.goodsVolume < 0) {
-    throw new appErrors.CannotBeDoneError('Nemate dostatek masa.')
-  }
-  if (newState.goodsVolume > getCapacity(newState.capacityId)) {
-    throw new appErrors.CannotBeDoneError('Nemate dostatecnou prevozni kapacitu.')
-  }
-  if (newState.petrolVolume < 0) {
-    throw new appErrors.CannotBeDoneError('Nemate dostatek benzinu.')
-  }
   if (
     newState.capacityId < teamState.capacityId
     || newState.rangeCoefficientId < teamState.rangeCoefficientId
   ) {
     throw new appErrors.CannotBeDoneError('Nelze downgradovat.')
+  }
+  if (newState.balance < 0) {
+    throw new appErrors.CannotBeDoneError('Nemáte dostatek peněz.')
+  }
+  if (newState.goodsVolume < 0) {
+    throw new appErrors.CannotBeDoneError('Nemáte dostatek masa.')
+  }
+  if (newState.goodsVolume > getCapacity(newState.capacityId)) {
+    throw new appErrors.CannotBeDoneError('Nemáte dostatečnou převozní kapacitu.')
+  }
+  if (newState.petrolVolume < 0) {
+    throw new appErrors.CannotBeDoneError('Nemáte dostatek benzínu.')
   }
 }
 

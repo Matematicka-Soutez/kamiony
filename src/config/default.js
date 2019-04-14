@@ -64,7 +64,7 @@ module.exports = env => ({
       logging: false,
     },
     connectionString: process.env.DATABASE_URL
-      || 'postgres://postgres@database:5432/maso-local',
+      || 'postgres://postgres@localhost:5432/kamiony-local',
   },
   redis: {
     connectionString: process.env.REDISCLOUD_URL
@@ -90,8 +90,9 @@ module.exports = env => ({
   },
   scanningPasswords: ['zlutybagr', 'zelenaopice'],
   game: {
-    problemPrizeMoney: 50,
+    problemPrizeMoney: 30,
     problemPrizePetrolVolume: 2,
+    exchangeRateSensitivity: 90,
     initialTeamState: {
       cityId: gameEnums.CITIES.PRAHA.id,
       capacityId: gameEnums.CAPACITIES.BASIC.id,

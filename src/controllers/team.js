@@ -30,7 +30,7 @@ async function revertAction(ctx) {
     ctx.body = await new RevertActionService(ctx.state)
       .execute({
         gameCode: ctx.params.gameCode,
-        teamId: parseInt(ctx.request.body.teamId, 10),
+        teamId: parseInt(ctx.params.teamId, 10),
       })
   } catch (err) {
     if (err instanceof appErrors.CannotBeDoneError) {

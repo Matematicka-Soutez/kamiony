@@ -6,7 +6,7 @@ const _ = require('lodash')
 const appErrors = require('../errors/application')
 const logger = require('../logger').serviceLogger
 const config = require('../../src/config')
-const validators = require('../../api/src/utils/validators')
+const validators = require('../../src/utils/validators')
 
 let newrelic
 if (config.newRelic.licenseKey) {

@@ -2,51 +2,36 @@
 
 Promise = require('bluebird')
 const _ = require('lodash')
-const enums = require('../../../core/enums')
 const {
   createVenue,
   createRoom,
   createGame,
-  createCompetition,
-  createCompetitionVenue,
-  createCompetitionVenueRoom,
+  createGameVenue,
+  createGameVenueRoom,
 } = require('./generators')
 
 async function initStatic() {
   const games = await initGames()
   const venues = await initVenues()
   const rooms = await initRooms(venues)
-  const competitions = await initCompetitions(games)
-  const competitionVenues = await initCompetitionVenues(competitions, venues)
-  await initCompetitionVenueRooms(competitionVenues, rooms)
-  return { games, rooms, venues, competitions }
+  const gameVenues = await initGameVenues(games, venues)
+  await initGameVenueRooms(gameVenues, rooms)
+  return { games, rooms, venues, gameVenues }
 }
 
 function initVenues() {
   const venues = [{
     id: 1,
-    name: 'Praha',
+    name: 'MFF Malá Strana',
     defaultCapacity: 86,
-    address: {
-      titleLine1: '',
-      titleLine2: 'Matematicko-fyzikální fakulta UK',
-      street: 'Malostranské náměstí 25',
-      city: 'Praha 1',
-      zip: '110 00',
-      countryId: enums.COUNTRIES.CZECH_REPUBLIC.id,
-    },
   }, {
     id: 2,
     name: 'Brno',
     defaultCapacity: 30,
-    address: {
-      titleLine1: '',
-      titleLine2: 'Gymnázium Matyáše Lercha',
-      street: 'Žižkova ulice 980/55',
-      city: 'Brno - Veveří',
-      zip: '616 00',
-      countryId: enums.COUNTRIES.CZECH_REPUBLIC.id,
-    },
+  }, {
+    id: 3,
+    name: 'MFF Karlov',
+    defaultCapacity: 48,
   }]
   return Promise.map(venues, venue => createVenue(venue))
 }
@@ -77,6 +62,16 @@ function initRooms(venues) {
     name: 'GML',
     defaultCapacity: 30,
     venueId: venues[1].id,
+  }, {
+    id: 6,
+    name: 'M1',
+    defaultCapacity: 20,
+    venueId: venues[2].id,
+  }, {
+    id: 7,
+    name: 'M2',
+    defaultCapacity: 28,
+    venueId: venues[2].id,
   }]
   return Promise.map(rooms, room => createRoom(room))
 }
@@ -84,125 +79,63 @@ function initRooms(venues) {
 function initGames() {
   const games = [{
     id: 1,
-    name: 'Lahvování vody',
-    description: 'TBA',
-    folder: 'water-bottling',
-  }, {
-    id: 2,
-    name: 'Game of trust',
-    description: 'TBA',
-    folder: 'game-of-trust',
+    code: 'sim007',
+    date: new Date('2019-04-14T08:00:00.000Z'),
+    start: new Date('2019-04-14T08:00:00.000Z'),
+    end: new Date('2019-04-14T09:30:00.000Z'),
+    isPublic: true,
   }]
   return Promise.map(games, game => createGame(game))
 }
 
-function initCompetitions() {
-  const competitions = [{
-    id: 1,
-    name: 'Jarní MaSo 2018',
-    date: new Date('2018-05-16T08:30:00.000Z'),
-    start: new Date('2018-05-16T10:00:00.000Z'),
-    end: new Date('2018-05-16T11:30:00.000Z'),
-    registrationRound1: new Date('2018-04-11T07:30:00.000Z'),
-    registrationRound2: new Date('2018-04-25T07:30:00.000Z'),
-    registrationRound3: new Date('2018-05-02T07:30:00.000Z'),
-    registrationEnd: new Date('2018-05-09T23:00:00.000Z'),
-    isPublic: true,
-    invitationEmailSent: true,
-    organizerId: null,
-    gameId: 1,
-  }, {
-    id: 2,
-    name: 'Podzimní MaSo 2018',
-    date: new Date('2018-11-06T06:30:00.000Z'),
-    start: new Date('2018-11-06T08:00:00.000Z'),
-    end: new Date('2018-11-06T09:30:00.000Z'),
-    registrationRound1: new Date('2018-10-02T05:30:00.000Z'),
-    registrationRound2: new Date('2018-10-16T05:30:00.000Z'),
-    registrationRound3: new Date('2018-10-23T05:30:00.000Z'),
-    registrationEnd: new Date('2018-10-30T21:00:00.000Z'),
-    isPublic: true,
-    invitationEmailSent: true,
-    organizerId: null,
-    gameId: 2,
-  }, {
-    id: 3,
-    name: 'Jarní MaSo 2019',
-    date: new Date('2019-05-14T05:00:00.000Z'),
-    start: new Date('2019-05-14T08:00:00.000Z'),
-    end: new Date('2019-05-14T09:30:00.000Z'),
-    registrationRound1: new Date('2019-04-09T07:00:00.000Z'),
-    registrationRound2: new Date('2019-04-23T07:00:00.000Z'),
-    registrationRound3: new Date('2019-04-30T07:00:00.000Z'),
-    registrationEnd: new Date('2019-05-07T22:00:00.000Z'),
-    isPublic: true,
-    invitationEmailSent: true,
-    organizerId: null,
-    gameId: 2,
-  }]
-  return Promise.map(competitions, competition => createCompetition(competition))
-}
-
-async function initCompetitionVenues(competitions, venues) {
-  const competitionVenues = await Promise.mapSeries(
-    competitions,
-    competition => Promise.mapSeries(
+async function initGameVenues(games, venues) {
+  const gameVenues = await Promise.mapSeries(
+    games,
+    game => Promise.mapSeries(
       venues,
-      venue => createCompetitionVenue({
+      venue => createGameVenue({
         capacity: venue.defaultCapacity,
-        competitionId: competition.id,
+        gameId: game.id,
         venueId: venue.id,
       }),
     ),
   )
-  return _.flatten(competitionVenues)
+  return _.flatten(gameVenues)
 }
 
-function initCompetitionVenueRooms(competitionVenues, rooms) {
-  const competitionVenueRooms = [{
-    competitionVenueId: competitionVenues[0].id,
+function initGameVenueRooms(gameVenues, rooms) {
+  const gameVenueRooms = [{
+    gameVenueId: gameVenues[0].id,
     roomId: rooms[0].id,
     capacity: rooms[0].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[0].id,
+    gameVenueId: gameVenues[0].id,
     roomId: rooms[1].id,
     capacity: rooms[1].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[0].id,
+    gameVenueId: gameVenues[0].id,
     roomId: rooms[2].id,
     capacity: rooms[2].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[0].id,
+    gameVenueId: gameVenues[0].id,
     roomId: rooms[3].id,
     capacity: rooms[3].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[1].id,
+    gameVenueId: gameVenues[1].id,
     roomId: rooms[4].id,
     capacity: rooms[4].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[2].id,
-    roomId: rooms[0].id,
-    capacity: rooms[0].defaultCapacity,
+    gameVenueId: gameVenues[2].id,
+    roomId: rooms[5].id,
+    capacity: rooms[5].defaultCapacity,
   }, {
-    competitionVenueId: competitionVenues[2].id,
-    roomId: rooms[1].id,
-    capacity: rooms[1].defaultCapacity,
-  }, {
-    competitionVenueId: competitionVenues[2].id,
-    roomId: rooms[2].id,
-    capacity: rooms[2].defaultCapacity,
-  }, {
-    competitionVenueId: competitionVenues[2].id,
-    roomId: rooms[3].id,
-    capacity: rooms[3].defaultCapacity,
-  }, {
-    competitionVenueId: competitionVenues[3].id,
-    roomId: rooms[4].id,
-    capacity: rooms[4].defaultCapacity,
+    gameVenueId: gameVenues[2].id,
+    roomId: rooms[6].id,
+    capacity: rooms[6].defaultCapacity,
   }]
   return Promise.map(
-    competitionVenueRooms,
-    competitionVenueRoom => createCompetitionVenueRoom(competitionVenueRoom),
+    gameVenueRooms,
+    gameVenueRoom => createGameVenueRoom(gameVenueRoom),
   )
 }
 

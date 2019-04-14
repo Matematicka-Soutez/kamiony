@@ -1,12 +1,16 @@
 'use strict'
 
+Promise = require('bluebird')
 const _ = require('lodash')
+const TransactionalService = require('../../../core/services/TransactionalService')
 const config = require('../../config')
 const gameEnums = require('../../utils/enums')
 const teamActionRepository = require('../../repositories/teamAction')
+const teamStateRepository = require('../../repositories/teamState')
 const gameRepository = require('../../repositories/game')
-const TransactionalService = require('./../../../core/services/TransactionalService')
-const venueRepository = require('./../../repositories/venue')
+const venueRepository = require('../../repositories/venue')
+const firebase = require('../../firebase')
+const sim007 = require('../../data/sim007')
 
 module.exports = class InitGameService extends TransactionalService {
   schema() {
@@ -30,8 +34,19 @@ module.exports = class InitGameService extends TransactionalService {
     await gameRepository.clearData(game.id, dbTransaction)
     const teamActions = generateTeamActions(game, teams)
     await teamActionRepository.bulkCreate(teamActions, dbTransaction)
-    // TODO: set initial map
-    // TODO: set initial team states
+    await firebase.collection('maps').doc(gameCode).set(sim007)
+    const prices = {}
+    sim007.vertices.forEach(vertex => {
+      prices[vertex.id] = vertex.price
+    })
+    await firebase.collection('prices').doc(gameCode).set(prices)
+    await Promise.map(teams, async team => {
+      const teamState = await teamStateRepository.getCurrent(team.id, game.id, dbTransaction)
+      await firebase.collection('teams').doc(`${gameCode}-${team.id}`).set({
+        ...teamState,
+        team,
+      })
+    })
     return {
       result: 'Initialization successful.',
       teamsEnrolled: teams.length,

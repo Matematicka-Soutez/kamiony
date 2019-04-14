@@ -2,7 +2,7 @@
 
 Promise = require('bluebird')
 const logger = require('../logger').serviceLogger
-const db = require('../../api/src/database')
+const db = require('../../src/database')
 const AbstractService = require('./AbstractService')
 
 module.exports = class TransactionalService extends AbstractService {
@@ -31,16 +31,16 @@ module.exports = class TransactionalService extends AbstractService {
   setTransactionOwnerToParentService(instanceOrOption) {
     this.transaction = instanceOrOption.transaction
     this.transactionHandled = false
-    this.isOwnerOfTransacion = false
+    this.isOwnerOfTransaction = false
   }
 
   setTransactionOwnerToThisService() {
     this.transactionHandled = true
-    this.isOwnerOfTransacion = true
+    this.isOwnerOfTransaction = true
   }
 
   commit() {
-    if (!this.transactionHandled && this.isOwnerOfTransacion === true) {
+    if (!this.transactionHandled && this.isOwnerOfTransaction === true) {
       this.transactionHandled = true
       this.log('info', 'TRANSACTION COMMITTED...')
       return this.transaction.commit()
@@ -49,7 +49,7 @@ module.exports = class TransactionalService extends AbstractService {
   }
 
   rollback() {
-    if (!this.transactionHandled && this.isOwnerOfTransacion === true) {
+    if (!this.transactionHandled && this.isOwnerOfTransaction === true) {
       this.transactionHandled = true
       this.log('info', 'TRANSACTION ROLLED BACK...')
       return this.transaction.rollback()

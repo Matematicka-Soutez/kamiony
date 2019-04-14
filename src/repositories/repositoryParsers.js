@@ -26,6 +26,9 @@ function parseTeam(team) {
 }
 
 function parseTeamAction(data) {
+  if (!data) {
+    return null
+  }
   const teamAction = _.pick(data, [
     'id',
     'gameId',

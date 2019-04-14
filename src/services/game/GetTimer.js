@@ -14,7 +14,7 @@ module.exports = class GetTimerService extends AbstractService {
     }
   }
 
-  run() {
+  async run() {
     const game = await gameRepository.getByCode(this.data.gameCode)
     const now = moment()
     return {

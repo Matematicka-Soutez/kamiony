@@ -4,8 +4,10 @@ const appErrors = require('../../../core/errors/application')
 const TransactionalService = require('../../../core/services/TransactionalService')
 const config = require('../../config')
 const teamSolutionRepository = require('../../repositories/teamSolution')
+const teamStateRepository = require('../../repositories/teamState')
 const teamRepository = require('../../repositories/team')
 const gameRepository = require('../../repositories/game')
+const firebase = require('../../firebase')
 
 module.exports = class UpdateTeamSolutionsService extends TransactionalService {
   schema() {
@@ -36,6 +38,8 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
       createdBy: null,
       solved: action === 'add',
     }, dbTransaction)
+    const teamState = await teamStateRepository.getCurrent(team.id, game.id, dbTransaction)
+    await firebase.collection('teams').doc(`${gameCode}-${team.id}`).update(teamState)
     teamSolution.teamNumber = team.number
     return teamSolution
   }

@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
               "solved_problems" * ${config.game.problemPrizePetrolVolume}   AS petrol_volume,
               "solved_problems" * ${config.game.problemPrizeMoney}          AS balance
             FROM public."TeamSolvedProblemCounts"
-            GROUP BY game_id, team_id
+            GROUP BY game_id, team_id, solved_problems
 
             UNION ALL
 
@@ -81,24 +81,23 @@ module.exports = (sequelize, DataTypes) => {
                   a1."game_id"                      AS game_id,
                   a1."city_id"                      AS city_id,
                   a1."capacity_id"                  AS capacity_id,
-                  a1."range_coefficient_id"         AS range_coefficient_id,
+                  a1."range_coefficient_id"         AS range_coefficient_id
                 FROM public."TeamActions" a1
                 LEFT JOIN public."TeamActions" a2
                 ON (
                   a1."team_id" = a2."team_id"
                   AND a1."game_id" = a2."game_id"
+                  AND NOT a2."reverted"
                   AND a1."createdAt" < a2."createdAt"
                 )
-                WHERE a2."id" IS NULL
-                  AND NOT a1."reverted"
-                  AND NOT a2."reverted"
+                WHERE a2."id" IS NULL AND NOT a1."reverted"
               ) as ta2
               ON (
                 ta1."team_id" = ta2."team_id"
                 AND ta1."game_id" = ta2."game_id"
               )
-            WHERE NOT a1."reverted"
-            GROUP BY game_id, team_id
+            WHERE NOT ta1."reverted"
+            GROUP BY ta1."game_id", ta1."team_id", ta2."city_id", ta2."capacity_id", ta2."range_coefficient_id"
           ) as suicide
           GROUP BY game_id, team_id
           ORDER BY game_id, team_id;

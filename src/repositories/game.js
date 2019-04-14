@@ -21,7 +21,7 @@ async function create(game, dbTransaction) {
 }
 
 async function clearData(gameId, dbTransaction) {
-  await db.TeamActions.destroy({ where: { gameId }, transaction: dbTransaction })
+  await db.TeamAction.destroy({ where: { gameId }, transaction: dbTransaction })
 }
 
 module.exports = {

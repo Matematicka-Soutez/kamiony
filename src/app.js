@@ -1,16 +1,15 @@
 'use strict'
 
 const cluster = require('cluster')
-const path = require('path')
 const http = require('http')
 const Koa = require('koa')
 const koaBody = require('koa-body')
 const koaCompress = require('koa-compress')
 const koaCors = require('@koa/cors')
-const config = require('./config/index')
+const config = require('./config')
 const log = require('../core/logger').logger
-const routes = require('./routes/index')
-const db = require('./database/index')
+const routes = require('./routes')
+const db = require('./database')
 
 const app = new Koa()
 app.server = http.createServer(app.callback())

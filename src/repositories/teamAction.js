@@ -4,12 +4,17 @@ const db = require('../database')
 const parsers = require('./repositoryParsers')
 
 async function create(teamAction, dbTransaction) {
-  const createdTeamAction = await db.TeamActions.create(teamAction, { transaction: dbTransaction })
+  const createdTeamAction = await db.TeamAction.create(teamAction, { transaction: dbTransaction })
   return parsers.parseTeamAction(createdTeamAction)
 }
 
+async function bulkCreate(teamActions, dbTransaction) {
+  await db.TeamAction.bulkCreate(teamActions, { transaction: dbTransaction })
+  return true
+}
+
 async function getLatest(teamId, gameId, dbTransaction) {
-  const teamAction = await db.TeamActions.findOne({
+  const teamAction = await db.TeamAction.findOne({
     where: { teamId, gameId, reverted: false },
     order: [['createdAt', 'DESC']],
     transaction: dbTransaction,
@@ -18,7 +23,7 @@ async function getLatest(teamId, gameId, dbTransaction) {
 }
 
 function revertById(teamActionId, dbTransaction) {
-  return db.TeamActions.update(
+  return db.TeamAction.update(
     { reverted: true },
     {
       where: { id: teamActionId },
@@ -30,6 +35,7 @@ function revertById(teamActionId, dbTransaction) {
 
 module.exports = {
   create,
+  bulkCreate,
   getLatest,
   revertById,
 }
