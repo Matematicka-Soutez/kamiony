@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 'use strict'
 
-const config = require('../../config')
-
 module.exports = (sequelize, DataTypes) => {
   const TeamState = sequelize.define('TeamState', {
     // id column is here just to pleasure sequelize
@@ -17,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     petrolVolume: { type: DataTypes.INTEGER, allowNull: false, field: 'petrol_volume' },
     balance: { type: DataTypes.INTEGER, allowNull: false, field: 'balance' },
   }, {
-    tableName: 'TeamStates',
-    timestamps: false,
-  })
+      tableName: 'TeamStates',
+      timestamps: false,
+    })
 
   TeamState.associate = models => {
     TeamState.belongsTo(models.Team, {
@@ -50,17 +48,18 @@ module.exports = (sequelize, DataTypes) => {
             SUM(balance)                 AS balance
           FROM (
             SELECT
-              0                 AS id,
-              "team_id"         AS team_id,
-              "game_id"         AS game_id,
-              0                 AS city_id,
-              0                 AS capacity_id,
-              0                 AS range_coefficient_id,
-              0                 AS goods_volume,
-              "solved_problems" * ${config.game.problemPrizePetrolVolume}   AS petrol_volume,
-              "solved_problems" * ${config.game.problemPrizeMoney}          AS balance
-            FROM public."TeamSolvedProblemCounts"
-            GROUP BY game_id, team_id, solved_problems
+              0                              AS id,
+              "team_id"                      AS team_id,
+              "game_id"                      AS game_id,
+              0                              AS city_id,
+              0                              AS capacity_id,
+              0                              AS range_coefficient_id,
+              0                              AS goods_volume,
+              SUM("petrol_volume")           AS petrol_volume,
+              SUM("balance")                 AS balance
+            FROM public."TeamActions"
+            WHERE "action_id" = 6
+            GROUP BY game_id, team_id
 
             UNION ALL
 
@@ -87,16 +86,16 @@ module.exports = (sequelize, DataTypes) => {
                 ON (
                   a1."team_id" = a2."team_id"
                   AND a1."game_id" = a2."game_id"
-                  AND NOT a2."reverted"
+                  AND NOT a2."reverted" AND a2."action_id" != 6
                   AND a1."createdAt" < a2."createdAt"
                 )
-                WHERE a2."id" IS NULL AND NOT a1."reverted"
+                WHERE a2."id" IS NULL AND NOT a1."reverted" AND a1."action_id" != 6
               ) as ta2
               ON (
                 ta1."team_id" = ta2."team_id"
                 AND ta1."game_id" = ta2."game_id"
               )
-            WHERE NOT ta1."reverted"
+            WHERE NOT ta1."reverted" AND ta1."action_id" != 6
             GROUP BY ta1."game_id", ta1."team_id", ta2."city_id", ta2."capacity_id", ta2."range_coefficient_id"
           ) as suicide
           GROUP BY game_id, team_id

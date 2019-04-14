@@ -3,7 +3,9 @@
 const appErrors = require('../../../core/errors/application')
 const TransactionalService = require('../../../core/services/TransactionalService')
 const config = require('../../config')
+const enums = require('../../utils/enums')
 const teamSolutionRepository = require('../../repositories/teamSolution')
+const teamActionRepository = require('../../repositories/teamAction')
 const teamStateRepository = require('../../repositories/teamState')
 const teamRepository = require('../../repositories/team')
 const gameRepository = require('../../repositories/game')
@@ -31,6 +33,13 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
     const dbTransaction = await this.createOrGetTransaction()
     const game = await gameRepository.getByCode(gameCode, dbTransaction)
     const team = await teamRepository.findByNumberAndGame(teamNumber, game.id, dbTransaction)
+
+    const solution = await teamSolutionRepository.findSolution(team.id, game.id, problemNumber, dbTransaction)
+    if (action === 'add' && solution) {
+      solution.teamNumber = team.number
+      return solution
+    }
+
     const teamSolution = await teamSolutionRepository.createTeamSolutionChange({
       gameId: game.id,
       teamId: team.id,
@@ -38,6 +47,28 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
       createdBy: null,
       solved: action === 'add',
     }, dbTransaction)
+    if (action === 'add') {
+      const teamState = await teamStateRepository.getCurrent(team.id, game.id, dbTransaction)
+      const rangeCoefficient = enums.RANGE_COEFFICIENTS.ids[teamState.rangeCoefficientId].value
+      await teamActionRepository.create({
+        gameId: game.id,
+        teamId: team.id,
+        problemNumber,
+        actionId: 6,
+        cityId: 0,
+        capacityId: 0,
+        rangeCoefficientId: 0,
+        goodsVolume: 0,
+        petrolVolume: config.game.problemPrizePetrolVolume * rangeCoefficient,
+        balance: config.game.problemPrizeMoney,
+      }, dbTransaction)
+    } else {
+      await teamActionRepository.deleteProblem({
+        gameId: game.id,
+        teamId: team.id,
+        problemNumber,
+      }, dbTransaction)
+    }
     const teamState = await teamStateRepository.getCurrent(team.id, game.id, dbTransaction)
     await firebase.collection('teams').doc(`${gameCode}-${team.id}`).update(teamState)
     teamSolution.teamNumber = team.number

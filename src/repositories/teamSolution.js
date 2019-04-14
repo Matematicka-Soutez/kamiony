@@ -11,6 +11,15 @@ async function createTeamSolutionChange(teamSolutionChange, dbTransaction) {
   return parsers.parseTeamSolution(teamSolution)
 }
 
+async function findSolution(teamId, gameId, problemNumber, dbTransaction) {
+  const teamSolution = await db.TeamSolution.findOne({
+    where: { teamId, gameId, problemNumber, solved: true },
+    transaction: dbTransaction,
+  })
+  return parsers.parseTeamSolution(teamSolution)
+}
+
 module.exports = {
   createTeamSolutionChange,
+  findSolution,
 }

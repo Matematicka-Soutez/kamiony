@@ -15,7 +15,7 @@ async function bulkCreate(teamActions, dbTransaction) {
 
 async function getLatest(teamId, gameId, dbTransaction) {
   const teamAction = await db.TeamAction.findOne({
-    where: { teamId, gameId, reverted: false },
+    where: { teamId, gameId, reverted: false, problemNumber: 0 },
     order: [['createdAt', 'DESC']],
     transaction: dbTransaction,
   })
@@ -33,9 +33,17 @@ function revertById(teamActionId, dbTransaction) {
   )
 }
 
+function deleteProblem({ gameId, teamId, problemNumber }, dbTransaction) {
+  return db.TeamAction.destroy({
+    where: { gameId, teamId, problemNumber, actionId: 6 },
+    transaction: dbTransaction,
+  })
+}
+
 module.exports = {
   create,
   bulkCreate,
   getLatest,
   revertById,
+  deleteProblem,
 }

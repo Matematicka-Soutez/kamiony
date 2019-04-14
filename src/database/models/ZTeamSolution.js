@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
     teamId: { type: DataTypes.INTEGER, allowNull: false, field: 'team_id', primaryKey: true },
     gameId: { type: DataTypes.INTEGER, allowNull: false, field: 'game_id', primaryKey: true },
     solved: { type: DataTypes.BOOLEAN, allowNull: false, default: false, field: 'solved' },
-    createdBy: { type: DataTypes.INTEGER, allowNull: false, field: 'created_by' },
   }, {
     tableName: 'TeamSolutions',
     timestamps: false,

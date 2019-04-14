@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     goodsVolume: { type: DataTypes.INTEGER, allowNull: false, field: 'goods_volume' },
     petrolVolume: { type: DataTypes.INTEGER, allowNull: false, field: 'petrol_volume' },
     balance: { type: DataTypes.INTEGER, allowNull: false, field: 'balance' },
+    problemNumber: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, field: 'problem_number' },
     isDefault: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false, field: 'is_default' },
     reverted: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false, field: 'reverted' },
   }, {

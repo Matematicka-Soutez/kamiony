@@ -41,6 +41,7 @@ function parseTeamAction(data) {
     'goodsVolume',
     'petrolVolume',
     'balance',
+    'problemNumber',
     'isDefault',
     'reverted',
     'createdAt',
