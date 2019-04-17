@@ -31,6 +31,20 @@ const TEAM_NAMES = [
   'Smrtijedi',
   'Holátka',
   'OPEN GATE',
+  'GFMP',
+  'ZŠ Čechtice',
+  'HAMALEMA',
+  'Kněžmosťáci',
+  'Bílá Třemešná',
+  'Kebab',
+  'Květákovo vojsko',
+  'Krakatit',
+  'Jílováci',
+  'Švehlovka 1',
+  'GEKOM 1',
+  'Lobkovičák',
+  'FZŠ Táborská',
+  'Polabiny 1-1',
 ]
 
 async function syncDb() {
