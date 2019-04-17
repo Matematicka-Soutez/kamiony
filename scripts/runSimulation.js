@@ -1,30 +1,53 @@
+/* eslint-disable no-await-in-loop */
 'use strict'
 
 Promise = require('bluebird')
 const request = require('request-promise')
-const config = require('../../../../config/index')
-const { STRATEGIES } = require('../src/utils/enums')
+// const config = require('../src/config')
+// const { ACTIONS } = require('../src/utils/enums')
 
-const AUTH = 'JWT TOKEN' // eslint-disable-line max-len
+const HOSTNAME = 'https://maso-staging.herokuapp.com'
 
 async function runSimulation() {
+  const teams = await getTeams()
+  const problemNumber = 1
   while (true) { // eslint-disable-line no-constant-condition
+    await addSolvedProblems(teams, problemNumber)
+    await performMoves(teams)
     const sleepTime = Math.random() * 300
-    await Promise.delay(sleepTime) // eslint-disable-line no-await-in-loop
-    const body = {
-      teamId: Math.floor((Math.random() * 114) + 1),
-      strategyId: Math.floor((Math.random() * STRATEGIES.idsAsEnum.length) + 1),
-    }
-    await request({ // eslint-disable-line no-await-in-loop
-      method: 'PUT',
-      uri: `${config.hostname}/api/org/competitions/current/game/change-strategy`,
-      headers: {
-        Authorization: AUTH,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
+    await Promise.delay(sleepTime)
   }
+}
+
+async function addSolvedProblems(teams, problemNumber) {
+  // for each team do a dice roll and if success
+  await Promise.mapSeries(teams, async team => {
+    const success = Math.random() > 0.8
+    if (success) {
+      await request({
+        method: 'PUT',
+        uri: `${HOSTNAME}/api/competitions/current/team-solutions`,
+        body: JSON.stringify({
+          team: team.number,
+          problemNumber,
+          password: 'zluty-bagr',
+          action: 'add',
+        }),
+      })
+    }
+  })
+}
+
+async function performMoves(teams) {
+  await Promise.mapSeries(teams, team => moveTeam(team))
+}
+
+async function moveTeam(team) {
+
+}
+
+async function getTeams() {
+  // fetch teams from API
 }
 
 runSimulation()
