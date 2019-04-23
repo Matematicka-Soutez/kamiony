@@ -6,6 +6,7 @@ const UpdateTeamSolutionsService = require('../services/problem/UpdateTeamSoluti
 
 async function updateTeamSolutions(ctx) {
   try {
+    console.log(ctx.request.body)
     ctx.body = await new UpdateTeamSolutionsService(ctx.state)
       .execute({
         gameCode: 'bottest',
