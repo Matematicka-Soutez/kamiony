@@ -9,7 +9,7 @@ async function updateTeamSolutions(ctx) {
     console.log(ctx.request.body)
     ctx.body = await new UpdateTeamSolutionsService(ctx.state)
       .execute({
-        gameCode: 'bottest',
+        gameCode: 'sim007',
         teamNumber: parseInt(ctx.request.body.team),
         problemNumber: parseInt(ctx.request.body.problem),
         password: ctx.request.body.password,
