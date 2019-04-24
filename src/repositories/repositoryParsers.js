@@ -59,6 +59,10 @@ function parseTeamAction(data) {
   return teamAction
 }
 
+function parseTeamHistories(histories) {
+  return histories ? _.map(histories, parseTeamHistory) : histories
+}
+
 function parseTeamHistory(data) {
   const teamHistory = _.pick(data, [
     'gameId',
@@ -203,6 +207,7 @@ module.exports = {
   parseTeams,
   parseTeam,
   parseTeamAction,
+  parseTeamHistories,
   parseTeamHistory,
   parseTeamState,
   parseGame,

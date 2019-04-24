@@ -5,14 +5,14 @@ const db = require('../database')
 const parsers = require('./repositoryParsers')
 
 async function findAll(teamId, gameId, dbTransaction) {
-  const teamHistory = await db.TeamHistory.findAll({
+  const teamHistories = await db.TeamHistory.findAll({
     where: { teamId, gameId },
     transaction: dbTransaction,
   })
-  if (!teamHistory) {
+  if (!teamHistories) {
     throw new appErrors.NotFoundError()
   }
-  return parsers.parseTeamHistory(teamHistory)
+  return parsers.parseTeamHistories(teamHistories)
 }
 
 module.exports = {
