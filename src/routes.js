@@ -31,6 +31,7 @@ router.get('/api/games/:gameCode/venues', game.venues)
 router.post('/api/games/:gameCode/init', game.init)
 router.post('/api/games/:gameCode/teams/:teamId/actions', team.performAction)
 router.delete('/api/games/:gameCode/teams/:teamId/actions', team.revertAction)
+router.get('/api/games/:gameCode/teams/:teamId/history', team.getHistory)
 // router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
 // Temporary workaround
 router.put('/api/competitions/current/team-solutions', problem.updateTeamSolutions)
