@@ -58,7 +58,7 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
         teamId: team.id,
         problemNumber,
         actionId: 6,
-        cityId: 0,
+        cityId: teamState.cityId,
         capacityId: 0,
         rangeCoefficientId: 0,
         goodsVolume: 0,
