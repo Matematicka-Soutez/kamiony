@@ -59,6 +59,25 @@ function parseTeamAction(data) {
   return teamAction
 }
 
+function parseTeamHistories(histories) {
+  return histories ? _.map(histories, parseTeamHistory) : histories
+}
+
+function parseTeamHistory(data) {
+  const teamHistory = _.pick(data, [
+    'gameId',
+    'teamId',
+    'cityId',
+    'capacityId',
+    'rangeCoefficientId',
+    'goodsVolume',
+    'petrolVolume',
+    'balance',
+    'createdAt',
+  ])
+  return teamHistory
+}
+
 function parseTeamState(data) {
   const teamState = _.pick(data, [
     'gameId',
@@ -77,7 +96,6 @@ function parseTeamState(data) {
     teamState.game = parseTeam(data.game)
   }
   return teamState
-
 }
 
 function parseGame(game) {
@@ -189,6 +207,8 @@ module.exports = {
   parseTeams,
   parseTeam,
   parseTeamAction,
+  parseTeamHistories,
+  parseTeamHistory,
   parseTeamState,
   parseGame,
   parseGameVenues,
