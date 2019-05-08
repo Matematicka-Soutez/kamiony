@@ -33,7 +33,7 @@
     "bcrypt": "^3.0.6",
     "bluebird": "^3.5.4",
     "bunyan": "^1.8.12",
-    "firebase": "^5.9.4",
+    "firebase-admin": "^7.3.0",
     "jsonschema": "^1.2.4",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
