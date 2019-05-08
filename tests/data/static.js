@@ -79,10 +79,10 @@ function initRooms(venues) {
 function initGames() {
   const games = [{
     id: 1,
-    code: 'sim007',
-    date: new Date('2019-04-14T08:00:00.000Z'),
-    start: new Date('2019-04-14T08:00:00.000Z'),
-    end: new Date('2019-04-14T09:30:00.000Z'),
+    code: 'maso25',
+    map: 'maso25',
+    start: new Date('2019-04-29T13:00:00.000Z'),
+    end: new Date('2019-04-29T14:30:00.000Z'),
     isPublic: true,
   }]
   return Promise.map(games, game => createGame(game))

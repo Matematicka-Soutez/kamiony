@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Game = sequelize.define('Game', {
     code: { type: DataTypes.STRING, allowNull: false, field: 'code', unique: true },
-    date: { type: DataTypes.DATE, allowNull: false, field: 'date' },
+    map: { type: DataTypes.STRING, allowNull: false, field: 'map' },
     start: { type: DataTypes.DATE, allowNull: false, field: 'start' },
     end: { type: DataTypes.DATE, allowNull: false, field: 'end' },
     isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true, field: 'is_public' },

@@ -10,7 +10,7 @@ const chance = new Chance()
 async function createGame(defaults) {
   const year = new Date().getFullYear()
   const game = _.assign({}, {
-    code: chance.pickone(['sim007', 'cb34bhio']),
+    code: chance.pickone(['live42', 'cb34bhio']),
     date: chance.date({ month: 5, year }),
     isPublic: chance.bool(),
   }, defaults)

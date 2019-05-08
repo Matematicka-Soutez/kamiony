@@ -98,20 +98,17 @@ function parseTeamState(data) {
   return teamState
 }
 
-function parseGame(game) {
-  if (!game) {
-    return game
-  }
-  const parsed = {}
-  parsed.id = game.id
-  parsed.code = game.code
-  parsed.date = game.date
-  parsed.start = game.start
-  parsed.end = game.end
-  parsed.isPublic = game.isPublic
-  parsed.createdAt = game.createdAt
-  parsed.updatedAt = game.updatedAt
-  return parsed
+function parseGame(data) {
+  return data && _.pick(data, [
+    'id',
+    'code',
+    'map',
+    'start',
+    'end',
+    'isPublic',
+    'createdAt',
+    'updatedAt',
+  ])
 }
 
 function parseGameVenues(gameVenues) {
