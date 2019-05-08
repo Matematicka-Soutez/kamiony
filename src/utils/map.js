@@ -8,60 +8,60 @@ const _concat = require('lodash/concat')
 
 function emptyPath() {
   return {
-    edges: [],
-    vertices: [],
+    connections: [],
+    cities: [],
     length: 0,
   }
 }
 
-function getShortestPath(map, startVertexId, endVertexId) {
+function getShortestPath(map, startcityId, endcityId) {
   const queue = []
   const solutions = []
 
-  for (let i = 1; i <= map.vertices.length; i++) {
+  for (let i = 1; i <= map.cities.length; i++) {
     solutions[i] = {
       dist: 1000,
       path: [],
     }
   }
 
-  solutions[startVertexId] = {
+  solutions[startcityId] = {
     dist: 0,
     path: [],
   }
 
-  queue.push(_find(map.vertices, { id: startVertexId }))
+  queue.push(_find(map.cities, { id: startcityId }))
 
   while (queue.length !== 0) {
     const previous = queue.shift()
-    previous.edges.forEach(edgeId => {
-      const nextId = edgeToDestination(edgeId, previous.id, map)
-      const edge = _find(map.edges, { id: edgeId })
-      const previousVertex = solutions[previous.id]
-      if (solutions[nextId].dist > previousVertex.dist + edge.length) {
-        const vertex = _find(map.vertices, { id: nextId })
+    previous.connections.forEach(connectionId => {
+      const nextId = connectionToDestination(connectionId, previous.id, map)
+      const connection = _find(map.connections, { id: connectionId })
+      const previouscity = solutions[previous.id]
+      if (solutions[nextId].dist > previouscity.dist + connection.length) {
+        const city = _find(map.cities, { id: nextId })
         solutions[nextId] = {
-          dist: previousVertex.dist + edge.length,
-          path: _concat(previousVertex.path, edge),
-          vertices: _concat(previousVertex.vertices, vertex),
+          dist: previouscity.dist + connection.length,
+          path: _concat(previouscity.path, connection),
+          cities: _concat(previouscity.cities, city),
         }
-        queue.push(vertex)
+        queue.push(city)
       }
     })
   }
 
   return {
-    edges: _map(solutions[endVertexId].path, 'id'),
-    vertices: _map(solutions[endVertexId].vertices, 'id'),
-    length: solutions[endVertexId].dist,
+    connections: _map(solutions[endcityId].path, 'id'),
+    cities: _map(solutions[endcityId].cities, 'id'),
+    length: solutions[endcityId].dist,
   }
 }
 
-function edgeToDestination(edgeId, vertexId, map) {
-  const vertexEdges = _find(map.edges, { id: edgeId })
+function connectionToDestination(connectionId, cityId, map) {
+  const cityEdges = _find(map.connections, { id: connectionId })
   const destinations = _filter(
-    vertexEdges.vertices,
-    vertex => vertex !== vertexId,
+    cityEdges.cities,
+    city => city !== cityId,
   )
   return destinations[0]
 }

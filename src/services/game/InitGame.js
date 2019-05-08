@@ -10,7 +10,7 @@ const teamStateRepository = require('../../repositories/teamState')
 const gameRepository = require('../../repositories/game')
 const venueRepository = require('../../repositories/venue')
 const firebase = require('../../firebase')
-const sim007 = require('../../data/sim007')
+const { getMap, getSimplified } = require('../../maps')
 
 module.exports = class InitGameService extends TransactionalService {
   schema() {
@@ -18,6 +18,9 @@ module.exports = class InitGameService extends TransactionalService {
       type: 'Object',
       properties: {
         gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
+        start: { type: 'date', required: true },
+        end: { type: 'date', required: true },
+        force: { type: 'boolean', required: true },
       },
     }
   }
@@ -26,6 +29,7 @@ module.exports = class InitGameService extends TransactionalService {
     const { gameCode } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     const game = await gameRepository.getByCode(gameCode, dbTransaction)
+    const map = getMap(game.map)
     const venues = await venueRepository.findGameVenues(game.id, dbTransaction)
     const teams = _.filter(
       _.flatten(_.map(venues, 'teams')),
@@ -34,10 +38,10 @@ module.exports = class InitGameService extends TransactionalService {
     await gameRepository.clearData(game.id, dbTransaction)
     const teamActions = generateTeamActions(game, teams)
     await teamActionRepository.bulkCreate(teamActions, dbTransaction)
-    await firebase.collection('maps').doc(gameCode).set(sim007)
+    await firebase.collection('maps').doc(gameCode).set(getSimplified(map))
     const prices = {}
-    sim007.vertices.forEach(vertex => {
-      prices[vertex.id] = vertex.price
+    map.cities.forEach(city => {
+      prices[city.id] = city.price
     })
     await firebase.collection('prices').doc(gameCode).set(prices)
     await Promise.map(teams, async team => {
@@ -48,7 +52,7 @@ module.exports = class InitGameService extends TransactionalService {
       })
     })
     return {
-      result: 'Initialization successful.',
+      result: 'Hra je byla inicializována a brzy začne.',
       teamsEnrolled: teams.length,
     }
   }
