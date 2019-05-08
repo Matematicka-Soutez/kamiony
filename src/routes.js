@@ -29,6 +29,7 @@ router.get('/api/games/:gameCode/venues', game.venues)
 // Unintentionally public
 // TODO: add authorization
 router.post('/api/games/:gameCode/init', game.init)
+router.get('/api/games/:gameCode/productions', game.productions)
 router.post('/api/games/:gameCode/teams/:teamId/actions', team.performAction)
 router.delete('/api/games/:gameCode/teams/:teamId/actions', team.revertAction)
 router.get('/api/games/:gameCode/teams/:teamId/history', team.getHistory)

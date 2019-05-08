@@ -6,6 +6,7 @@ const InitGameService = require('../services/game/InitGame')
 const GetTimerService = require('../services/game/GetTimer')
 const GetVenuesByGameService = require('../services/game/GetVenues')
 const GetResultsService = require('../services/game/GetResults')
+const GetProductionsService = require('../services/game/GetProductions')
 
 async function init(ctx) {
   try {
@@ -62,10 +63,24 @@ async function results(ctx) {
   }
 }
 
+async function productions(ctx) {
+  try {
+    ctx.body = await new GetProductionsService(ctx.state).execute({
+      gameCode: ctx.params.gameCode,
+    })
+  } catch (err) {
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.BadRequestError('Hra nebyla nalezena.')
+    }
+    throw err
+  }
+}
+
 
 module.exports = {
   init,
   timer,
   venues,
   results,
+  productions,
 }
