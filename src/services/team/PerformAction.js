@@ -11,6 +11,7 @@ const gameEnums = require('../../utils/enums')
 const mapUtils = require('../../utils/map')
 const firebase = require('../../firebase')
 const config = require('../../config')
+const { getMap } = require('../../maps')
 
 module.exports = class PerformActionService extends TransactionalService {
   schema() {
@@ -50,14 +51,12 @@ module.exports = class PerformActionService extends TransactionalService {
     const { teamId, gameCode, actionId, actionValue } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    let map = {}
+    let map = getMap(game.map)
     let prices = {}
     if ([
       gameEnums.ACTIONS.SELL.id,
       gameEnums.ACTIONS.PURCHASE.id,
-      gameEnums.ACTIONS.MOVE.id,
     ].includes(actionId)) {
-      map = (await firebase.collection('maps').doc(gameCode).get()).data()
       prices = (await firebase.collection('prices').doc(gameCode).get()).data()
     }
     const currentTeamState = await teamStateRepository.getCurrent(teamId, game.id, dbTransaction)

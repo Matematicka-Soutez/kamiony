@@ -35,6 +35,9 @@ router.post('/api/games/:gameCode/teams/:teamId/actions', team.performAction)
 router.delete('/api/games/:gameCode/teams/:teamId/actions', team.revertAction)
 router.get('/api/games/:gameCode/teams/:teamId/history', team.getHistory)
 
+// Text input interface
+router.get('/api/games/:gameCode/teams', game.teams)
+router.get('/api/games/:gameCode/teams/:teamId', team.getState)
 // Temporary workaround
 router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
 router.put('/api/competitions/current/team-solutions', problem.updateTeamSolutions)

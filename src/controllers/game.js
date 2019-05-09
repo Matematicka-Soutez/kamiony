@@ -6,6 +6,7 @@ const InitGameService = require('../services/game/InitGame')
 const CreateGameService = require('../services/game/CreateGame')
 const GetTimerService = require('../services/game/GetTimer')
 const GetGroupsByGameService = require('../services/game/GetGroups')
+const GetTeamsByGameService = require('../services/game/GetTeams')
 const GetResultsService = require('../services/game/GetResults')
 const GetProductionsService = require('../services/game/GetProductions')
 
@@ -79,6 +80,19 @@ async function groups(ctx) {
   }
 }
 
+async function teams(ctx) {
+  try {
+    ctx.body = await new GetTeamsByGameService(ctx.state).execute({
+      gameCode: ctx.params.gameCode,
+    })
+  } catch (err) {
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.NotFoundError('Hra nebyla nalezena.')
+    }
+    throw err
+  }
+}
+
 async function results(ctx) {
   try {
     ctx.body = await new GetResultsService(ctx.state).execute({
@@ -111,6 +125,7 @@ module.exports = {
   create,
   timer,
   groups,
+  teams,
   results,
   productions,
 }

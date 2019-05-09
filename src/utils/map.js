@@ -14,7 +14,7 @@ function emptyPath() {
   }
 }
 
-function getShortestPath(map, startcityId, endcityId) {
+function getShortestPath(map, startCityId, endCityId) {
   const queue = []
   const solutions = []
 
@@ -25,25 +25,25 @@ function getShortestPath(map, startcityId, endcityId) {
     }
   }
 
-  solutions[startcityId] = {
+  solutions[startCityId] = {
     dist: 0,
     path: [],
   }
 
-  queue.push(_find(map.cities, { id: startcityId }))
+  queue.push(_find(map.cities, { id: startCityId }))
 
   while (queue.length !== 0) {
     const previous = queue.shift()
     previous.connections.forEach(connectionId => {
       const nextId = connectionToDestination(connectionId, previous.id, map)
       const connection = _find(map.connections, { id: connectionId })
-      const previouscity = solutions[previous.id]
-      if (solutions[nextId].dist > previouscity.dist + connection.length) {
+      const previousCity = solutions[previous.id]
+      if (solutions[nextId].dist > previousCity.dist + connection.length) {
         const city = _find(map.cities, { id: nextId })
         solutions[nextId] = {
-          dist: previouscity.dist + connection.length,
-          path: _concat(previouscity.path, connection),
-          cities: _concat(previouscity.cities, city),
+          dist: previousCity.dist + connection.length,
+          path: _concat(previousCity.path, connection),
+          cities: _concat(previousCity.cities, city),
         }
         queue.push(city)
       }
@@ -51,9 +51,9 @@ function getShortestPath(map, startcityId, endcityId) {
   }
 
   return {
-    connections: _map(solutions[endcityId].path, 'id'),
-    cities: _map(solutions[endcityId].cities, 'id'),
-    length: solutions[endcityId].dist,
+    connections: _map(solutions[endCityId].path, 'id'),
+    cities: _map(solutions[endCityId].cities, 'id'),
+    length: solutions[endCityId].dist,
   }
 }
 

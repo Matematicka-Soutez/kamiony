@@ -5,6 +5,7 @@ const responseErrors = require('../../core/errors/response')
 const PerformActionService = require('../services/team/PerformAction')
 const RevertActionService = require('../services/team/RevertAction')
 const GetHistoryService = require('../services/team/GetHistory')
+const GetStateService = require('../services/team/GetState')
 
 async function performAction(ctx) {
   try {
@@ -59,8 +60,24 @@ async function getHistory(ctx) {
   }
 }
 
+async function getState(ctx) {
+  try {
+    ctx.body = await new GetStateService(ctx.state)
+      .execute({
+        gameCode: ctx.params.gameCode,
+        teamId: parseInt(ctx.params.teamId, 10),
+      })
+  } catch (err) {
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.NotFoundError('Historie nebyla nalezena.')
+    }
+    throw err
+  }
+}
+
 module.exports = {
   performAction,
   revertAction,
   getHistory,
+  getState,
 }

@@ -12,6 +12,17 @@ async function findById(id, dbTransaction) {
   return parsers.parseTeam(team)
 }
 
+async function findByIdAndGame(id, gameId, dbTransaction) {
+  const team = await db.Team.findOne({
+    where: { id, gameId },
+    transaction: dbTransaction,
+  })
+  if (!team) {
+    throw new appErrors.NotFoundError()
+  }
+  return parsers.parseTeam(team)
+}
+
 async function findAllByGame(gameId, dbTransaction) {
   if (!gameId) {
     throw new Error('gameId is required')
@@ -68,6 +79,7 @@ async function update(id, data, dbTransaction) {
 
 module.exports = {
   findById,
+  findByIdAndGame,
   findAllByGame,
   findByNumberAndGame,
   findAllByGroupAndGame,
