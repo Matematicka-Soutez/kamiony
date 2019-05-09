@@ -56,10 +56,10 @@ async function syncDb() {
     await db.sequelize.sync({ force })
     if (force === true) {
       const data = await initStatic()
-      await initTeams(data.gameVenues[0].id)
+      await initTeams(data.games[0].id)
       await db.sequelize.query(`
         UPDATE "Teams" SET number = id WHERE true;
-        UPDATE "Teams" SET game_venue_room_id = 1 WHERE true;
+        UPDATE "Teams" SET game_id = 1 WHERE true;
       `)
     }
     await db.sequelize.close()
@@ -71,8 +71,13 @@ async function syncDb() {
   return true
 }
 
-async function initTeams(gameVenueId) {
-  await Promise.map(TEAM_NAMES, name => createTeam({ name, gameVenueId, arrived: true }))
+async function initTeams(gameId) {
+  await Promise.map(TEAM_NAMES, (name, number) => createTeam({
+    gameId,
+    name,
+    number: number + 1,
+    arrived: true,
+  }))
 }
 
 return syncDb()
