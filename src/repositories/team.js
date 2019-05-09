@@ -12,62 +12,50 @@ async function findById(id, dbTransaction) {
   return parsers.parseTeam(team)
 }
 
-async function findByName(name, dbTransaction) {
-  const team = await db.Team.findOne({
-    where: { name },
-    transaction: dbTransaction,
-  })
-  if (!team) {
-    throw new appErrors.NotFoundError()
-  }
-  return parsers.parseTeam(team)
-}
-
-async function findByNumberAndGame(number, gameId, dbTransaction) {
-  const team = await db.Team.findOne({
-    where: { number },
-    include: [{
-      model: db.GameVenue,
-      as: 'gameVenue',
-      required: true,
-      where: { gameId },
-    }],
-    transaction: dbTransaction,
-  })
-  if (!team) {
-    throw new appErrors.NotFoundError()
-  }
-  return parsers.parseTeam(team)
-}
-
-async function findAllByVenue(gameId, dbTransaction) {
+async function findAllByGame(gameId, dbTransaction) {
   if (!gameId) {
     throw new Error('gameId is required')
   }
-  const venues = await db.GameVenue.findAll({
+  const teams = await db.Team.findAll({
     where: { gameId },
-    include: [{
-      model: db.Venue,
-      as: 'venue',
-      required: true,
-    }, {
-      model: db.Team,
-      as: 'teams',
-      attributes: ['id', 'name'],
-      required: false,
-    }],
-    order: [
-      db.sequelize.literal('"venue"."name" DESC'),
-      db.sequelize.literal('"teams"."createdAt" ASC'),
-    ],
     transaction: dbTransaction,
   })
-  return parsers.parseGameVenues(venues)
+  return parsers.parseTeams(teams)
+}
+
+async function findByNumberAndGame(number, gameId, dbTransaction) {
+  if (!number || !gameId) {
+    throw new Error('number and gameId are required')
+  }
+  const team = await db.Team.findOne({
+    where: { number, gameId },
+    transaction: dbTransaction,
+  })
+  if (!team) {
+    throw new appErrors.NotFoundError()
+  }
+  return parsers.parseTeam(team)
+}
+
+async function findAllByGroupAndGame(group, gameId, dbTransaction) {
+  if (!group || !gameId) {
+    throw new Error('group and gameId are required')
+  }
+  const teams = await db.Team.findAll({
+    where: { gameId, group },
+    transaction: dbTransaction,
+  })
+  return parsers.parseTeams(teams)
 }
 
 async function create(team, dbTransaction) {
   const createdTeam = await db.Team.create(team, { transaction: dbTransaction })
   return parsers.parseTeam(createdTeam)
+}
+
+async function bulkCreate(teams, dbTransaction) {
+  await db.Team.bulkCreate(teams, { transaction: dbTransaction })
+  return true
 }
 
 async function update(id, data, dbTransaction) {
@@ -80,9 +68,10 @@ async function update(id, data, dbTransaction) {
 
 module.exports = {
   findById,
-  findByName,
+  findAllByGame,
   findByNumberAndGame,
-  findAllByVenue,
+  findAllByGroupAndGame,
   create,
+  bulkCreate,
   update,
 }

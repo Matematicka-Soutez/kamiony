@@ -24,17 +24,19 @@ if (config.env === 'production' || config.env === 'staging') {
 // Intentionally public
 router.get('/api/games/:gameCode/results', game.results)
 router.get('/api/games/:gameCode/timer', game.timer)
-router.get('/api/games/:gameCode/venues', game.venues)
+router.get('/api/games/:gameCode/groups', game.groups)
 
 // Unintentionally public
 // TODO: add authorization
-router.post('/api/games/:gameCode/init', game.init)
+router.post('/api/games', game.create)
+router.put('/api/games/:gameCode/init', game.init)
 router.get('/api/games/:gameCode/productions', game.productions)
 router.post('/api/games/:gameCode/teams/:teamId/actions', team.performAction)
 router.delete('/api/games/:gameCode/teams/:teamId/actions', team.revertAction)
 router.get('/api/games/:gameCode/teams/:teamId/history', team.getHistory)
-// router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
+
 // Temporary workaround
+router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
 router.put('/api/competitions/current/team-solutions', problem.updateTeamSolutions)
 
 router.use(handleNotFound)

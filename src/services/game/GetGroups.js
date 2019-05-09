@@ -1,10 +1,11 @@
 'use strict'
 
-const teamStateRepository = require('../../repositories/teamState')
+const _ = require('lodash')
+const AbstractService = require('../../../core/services/AbstractService')
 const gameRepository = require('../../repositories/game')
-const AbstractService = require('./../../../core/services/AbstractService')
+const teamRepository = require('../../repositories/team')
 
-module.exports = class GetResultsService extends AbstractService {
+module.exports = class GetGroupsByGameService extends AbstractService {
   schema() {
     return {
       type: 'Object',
@@ -16,6 +17,7 @@ module.exports = class GetResultsService extends AbstractService {
 
   async run() {
     const game = await gameRepository.getByCode(this.data.gameCode)
-    return teamStateRepository.getResults(game.id)
+    const teams = await teamRepository.findAllByGame(game.id)
+    return _.groupBy(teams, 'group')
   }
 }

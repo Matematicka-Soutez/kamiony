@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     petrolVolume: { type: DataTypes.INTEGER, allowNull: false, field: 'petrol_volume' },
     balance: { type: DataTypes.INTEGER, allowNull: false, field: 'balance' },
   }, {
-      tableName: 'TeamStates',
-      timestamps: false,
-    })
+    tableName: 'TeamStates',
+    timestamps: false,
+  })
 
   TeamState.associate = models => {
     TeamState.belongsTo(models.Team, {

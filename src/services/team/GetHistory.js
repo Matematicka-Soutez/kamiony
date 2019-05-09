@@ -20,7 +20,6 @@ module.exports = class GetHistoryService extends TransactionalService {
     const { gameCode, teamId } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    const history = await teamHistoryRepository.findAll(teamId, game.id, dbTransaction)
-    return history
+    return teamHistoryRepository.findAll(teamId, game.id, dbTransaction)
   }
 }

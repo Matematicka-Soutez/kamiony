@@ -6,23 +6,25 @@ function parseTeams(teams) {
   return teams ? _.map(teams, parseTeam) : teams
 }
 
-function parseTeam(team) {
-  if (!team) {
+function parseTeam(data) {
+  if (!data) {
     return null
   }
-  const parsed = {}
-  parsed.id = team.id
-  parsed.name = team.name
-  parsed.number = team.number
-  parsed.arrived = team.arrived
-  parsed.createdAt = team.createdAt
-  parsed.updatedAt = team.updatedAt
+  const team = _.pick(data, [
+    'id',
+    'name',
+    'number',
+    'masoId',
+    'group',
+    'solvedProblemsOverride',
+    'createdAt',
+    'updatedAt',
+  ])
 
-  if (team.gameVenue) {
-    parsed.gameVenue = parseGameVenue(team.gameVenue)
+  if (data.game) {
+    team.game = parseGame(data.game)
   }
-
-  return parsed
+  return team
 }
 
 function parseTeamAction(data) {
@@ -51,10 +53,10 @@ function parseTeamAction(data) {
     teamAction.team = parseTeam(data.team)
   }
   if (data.game) {
-    teamAction.game = parseTeam(data.game)
+    teamAction.game = parseGame(data.game)
   }
   if (data.previousTeamAction) {
-    teamAction.previousTeamAction = parseTeam(data.previousTeamAction)
+    teamAction.previousTeamAction = parseTeamAction(data.previousTeamAction)
   }
   return teamAction
 }
@@ -64,7 +66,7 @@ function parseTeamHistories(histories) {
 }
 
 function parseTeamHistory(data) {
-  const teamHistory = _.pick(data, [
+  return data && _.pick(data, [
     'gameId',
     'teamId',
     'cityId',
@@ -75,7 +77,6 @@ function parseTeamHistory(data) {
     'balance',
     'createdAt',
   ])
-  return teamHistory
 }
 
 function parseTeamState(data) {
@@ -93,7 +94,7 @@ function parseTeamState(data) {
     teamState.team = parseTeam(data.team)
   }
   if (data.game) {
-    teamState.game = parseTeam(data.game)
+    teamState.game = parseGame(data.game)
   }
   return teamState
 }
@@ -111,93 +112,38 @@ function parseGame(data) {
   ])
 }
 
-function parseGameVenues(gameVenues) {
-  return gameVenues ? _.map(gameVenues, parseGameVenue) : gameVenues
+function parseTeamSolution(data) {
+  return data && _.pick(data, [
+    'id',
+    'gameId',
+    'teamId',
+    'problemNumber',
+    'solved',
+    'createdAt',
+    'updatedAt',
+  ])
 }
 
-function parseGameVenue(gameVenue) {
-  if (!gameVenue) {
-    return gameVenue
-  }
-  const parsed = {}
-  parsed.id = gameVenue.id
-  parsed.capacity = gameVenue.capacity
-  parsed.gameId = gameVenue.gameId
-  parsed.venueId = gameVenue.venueId
+function parseResults(data) {
+  const results = data && data.map(result => ({
+    teamId: result.teamId,
+    teamName: result.team.name,
+    teamNumber: result.team.number,
+    group: result.team.group,
+    solvedProblems: result.team.solvedProblems.solvedProblems,
+    balance: result.balance,
+  }))
 
-  if (gameVenue.teams) {
-    parsed.teams = parseTeams(gameVenue.teams)
-  }
-  if (gameVenue.venue) {
-    parsed.venue = parseVenue(gameVenue.venue)
-  }
-  if (gameVenue.gvrooms) {
-    parsed.gvrooms = parseGameVenueRooms(gameVenue.gvrooms)
-  }
-
-  return parsed
-}
-
-function parseGameVenueRooms(gvrooms) {
-  return gvrooms ? _.map(gvrooms, parseGameVenueRoom) : gvrooms
-}
-
-function parseGameVenueRoom(gvroom) {
-  if (!gvroom) {
-    return gvroom
-  }
-  const parsed = {}
-  parsed.id = gvroom.id
-  parsed.capacity = gvroom.capacity
-  parsed.roomId = gvroom.roomId
-  parsed.gameVenueId = gvroom.gameVenueId
-
-  if (gvroom.teams) {
-    parsed.teams = parseTeams(gvroom.teams)
-  }
-
-  if (gvroom.room) {
-    parsed.room = parseRoom(gvroom.room)
-  }
-
-  return parsed
-}
-
-function parseRoom(room) {
-  if (!room) {
-    return room
-  }
-  const parsed = {}
-  parsed.id = room.id
-  parsed.name = room.name
-  parsed.defaultCapacity = room.defaultCapacity
-  return parsed
-}
-
-function parseVenue(venue) {
-  if (!venue) {
-    return venue
-  }
-  const parsed = {}
-  parsed.id = venue.id
-  parsed.name = venue.name
-  parsed.defaultCapacity = venue.defaultCapacity
-  return parsed
-}
-
-function parseTeamSolution(problem) {
-  if (!problem) {
-    return problem
-  }
-  const parsed = {}
-  parsed.id = problem.id
-  parsed.gameId = problem.gameId
-  parsed.teamId = problem.teamId
-  parsed.problemNumber = problem.problemNumber
-  parsed.solved = problem.solved
-  parsed.createdAt = problem.createdAt
-  parsed.updatedAt = problem.updatedAt
-  return parsed
+  let place = 1
+  let lastBalance = -1
+  results.forEach(result => {
+    if (lastBalance !== result.balance) {
+      result.place = `${place}.`
+      lastBalance = result.balance
+    }
+    place++
+  })
+  return results
 }
 
 module.exports = {
@@ -208,9 +154,6 @@ module.exports = {
   parseTeamHistory,
   parseTeamState,
   parseGame,
-  parseGameVenues,
-  parseGameVenue,
-  parseGameVenueRooms,
-  parseGameVenueRoom,
   parseTeamSolution,
+  parseResults,
 }

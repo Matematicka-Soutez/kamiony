@@ -1,9 +1,15 @@
 'use strict'
 
 const _ = require('lodash')
+const log = require('../../core/logger').errorLogger
 
 function getMap(code) {
-  return require(`./data/${code}`) // eslint-disable-line global-require
+  try {
+    return require(`./data/${code}`) // eslint-disable-line global-require
+  } catch (err) {
+    log.error('Map not found: ', code, err)
+    return null
+  }
 }
 
 function getSimplified(map) {
@@ -14,7 +20,16 @@ function getSimplified(map) {
   }
 }
 
+function getPrices(map) {
+  const prices = {}
+  map.cities.forEach(city => {
+    prices[city.id] = city.price
+  })
+  return prices
+}
+
 module.exports = {
   getMap,
   getSimplified,
+  getPrices,
 }
