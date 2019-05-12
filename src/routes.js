@@ -5,8 +5,8 @@ const responseErrors = require('../core/errors/response')
 const config = require('./config')
 const { handleErrors, handleNotFound } = require('./middleware/errors')
 const game = require('./controllers/game')
-const team = require('./controllers/team')
 const problem = require('./controllers/problem')
+const team = require('./controllers/team')
 
 const router = new Router()
 router.use(handleErrors)
@@ -37,7 +37,10 @@ router.get('/api/games/:gameCode/teams/:teamId/history', team.getHistory)
 
 // Text input interface
 router.get('/api/games/:gameCode/teams', game.teams)
-router.get('/api/games/:gameCode/teams/:teamId', team.getState)
+router.get('/api/games/:gameCode/teams/:teamId', team.getTeamState)
+router.post('/api/games/:gameCode/teams/:teamId/state', team.changeTeamState)
+router.delete('/api/games/:gameCode/teams/:teamId/state', team.revertTeamState)
+
 // Temporary workaround
 router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
 router.put('/api/competitions/current/team-solutions', problem.updateTeamSolutions)

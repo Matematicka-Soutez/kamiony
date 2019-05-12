@@ -11,7 +11,7 @@ module.exports = class GetHistoryService extends TransactionalService {
       type: 'Object',
       properties: {
         gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
-        teamId: { type: 'integer', required: true, min: 1 },
+        teamId: { type: 'integer', required: true, minimum: 1 },
       },
     }
   }

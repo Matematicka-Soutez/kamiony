@@ -14,8 +14,8 @@ async function init(ctx) {
   try {
     ctx.body = await new InitGameService(ctx.state).execute({
       gameCode: ctx.params.gameCode,
-      start: ctx.request.body.start,
-      end: ctx.request.body.end,
+      start: new Date(ctx.request.body.start),
+      end: new Date(ctx.request.body.end),
       force: Boolean(ctx.request.body.force),
     })
   } catch (err) {

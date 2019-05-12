@@ -19,14 +19,14 @@ module.exports = class PerformActionService extends TransactionalService {
       type: 'Object',
       properties: {
         gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
-        teamId: { type: 'integer', required: true, min: 1 },
+        teamId: { type: 'integer', required: true, minimum: 1 },
         actionId: { type: 'integer', required: true, enum: gameEnums.ACTIONS.idsAsEnum },
-        actionValue: { type: 'integer', required: true, min: 1, max: 30 },
+        actionValue: { type: 'integer', required: true, minimum: 1, maximum: 30 },
       },
       oneOf: [{
         properties: {
           actionId: { type: 'integer', required: true, enum: [gameEnums.ACTIONS.SELL.id, gameEnums.ACTIONS.PURCHASE.id] },
-          actionValue: { type: 'integer', required: true, min: 1, max: 30 },
+          actionValue: { type: 'integer', required: true, minimum: 1, maximum: 30 },
         },
       }, {
         properties: {
@@ -51,7 +51,7 @@ module.exports = class PerformActionService extends TransactionalService {
     const { teamId, gameCode, actionId, actionValue } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    let map = getMap(game.map)
+    const map = getMap(game.map)
     let prices = {}
     if ([
       gameEnums.ACTIONS.SELL.id,

@@ -28,6 +28,14 @@ async function create(game, dbTransaction) {
   return parsers.parseGame(createdGame)
 }
 
+async function update(id, data, dbTransaction) {
+  const game = await db.Game.update(data, {
+    where: { id },
+    transaction: dbTransaction,
+  })
+  return parsers.parseGame(game)
+}
+
 async function clearData(gameId, dbTransaction) {
   await db.TeamAction.destroy({ where: { gameId }, transaction: dbTransaction })
 }
@@ -36,5 +44,6 @@ module.exports = {
   getByCode,
   gameExists,
   create,
+  update,
   clearData,
 }

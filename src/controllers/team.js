@@ -5,7 +5,8 @@ const responseErrors = require('../../core/errors/response')
 const PerformActionService = require('../services/team/PerformAction')
 const RevertActionService = require('../services/team/RevertAction')
 const GetHistoryService = require('../services/team/GetHistory')
-const GetStateService = require('../services/team/GetState')
+const GetTeamStateService = require('../services/team/GetTeamState')
+const ChangeTeamStateService = require('../services/team/ChangeTeamState')
 
 async function performAction(ctx) {
   try {
@@ -60,9 +61,9 @@ async function getHistory(ctx) {
   }
 }
 
-async function getState(ctx) {
+async function getTeamState(ctx) {
   try {
-    ctx.body = await new GetStateService(ctx.state)
+    ctx.body = await new GetTeamStateService(ctx.state)
       .execute({
         gameCode: ctx.params.gameCode,
         teamId: parseInt(ctx.params.teamId, 10),
@@ -75,9 +76,53 @@ async function getState(ctx) {
   }
 }
 
+async function changeTeamState(ctx) {
+  try {
+    ctx.body = await new ChangeTeamStateService(ctx.state)
+      .execute({
+        gameCode: ctx.params.gameCode,
+        teamId: parseInt(ctx.params.teamId, 10),
+        moveId: parseInt(ctx.request.body.state, 10),
+      })
+  } catch (err) {
+    if (err instanceof appErrors.CannotBeDoneError) {
+      throw new responseErrors.BadRequestError(err.message)
+    }
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.UnauthorizedError('Hra nebyla nalezena.')
+    }
+    throw err
+  }
+}
+
+async function revertTeamState(ctx) {
+  try {
+    await new RevertActionService(ctx.state)
+      .execute({
+        gameCode: ctx.params.gameCode,
+        teamId: parseInt(ctx.params.teamId, 10),
+      })
+    ctx.body = await new GetTeamStateService(ctx.state)
+      .execute({
+        gameCode: ctx.params.gameCode,
+        teamId: parseInt(ctx.params.teamId, 10),
+      })
+  } catch (err) {
+    if (err instanceof appErrors.CannotBeDoneError) {
+      throw new responseErrors.BadRequestError(err.message)
+    }
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.UnauthorizedError('Hra nebyla nalezena.')
+    }
+    throw err
+  }
+}
+
 module.exports = {
   performAction,
   revertAction,
   getHistory,
-  getState,
+  getTeamState,
+  changeTeamState,
+  revertTeamState,
 }
