@@ -1,10 +1,10 @@
 'use strict'
 
-const teamStateRepository = require('../../repositories/teamState')
+const gameRepository = require('../../repositories/game')
 const AbstractService = require('./../../../core/services/AbstractService')
 
 module.exports = class GetResultsService extends AbstractService {
   run() {
-    return teamStateRepository.getResults(this.game.id)
+    return gameRepository.getResults(this.game.id)
   }
 }

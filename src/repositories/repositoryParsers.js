@@ -17,7 +17,6 @@ function parseTeam(data) {
     'masoId',
     'group',
     'school',
-    'solvedProblemsOverride',
     'createdAt',
     'updatedAt',
   ])
@@ -127,13 +126,14 @@ function parseTeamSolution(data) {
 }
 
 function parseResults(data) {
-  const results = data && data.map(result => ({
-    teamId: result.teamId,
-    teamName: result.team.name,
-    teamNumber: result.team.number,
-    group: result.team.group,
-    solvedProblems: result.team.solvedProblemCount ? result.team.solvedProblemCount.solvedProblems : 0,
-    balance: result.balance,
+  const results = data && data.map(team => ({
+    teamId: team.id,
+    teamName: team.name,
+    teamNumber: team.number,
+    group: team.group,
+    school: team.school,
+    solvedProblems: team.solvedProblemCount ? team.solvedProblemCount.solvedProblems : 0,
+    balance: team.teamState ? team.teamState.balance : 0,
   }))
 
   let place = 1

@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     number: { type: DataTypes.INTEGER, allowNull: false, field: 'number' },
     masoId: { type: DataTypes.INTEGER, allowNull: true, field: 'maso_id' },
     group: { type: DataTypes.STRING, allowNull: false, defaultValue: 'default', field: 'group' },
-    school: { type: DataTypes.STRING, allowNull: false, defaultValue: 'default', field: 'group' },
-    solvedProblemsOverride: { type: DataTypes.INTEGER, allowNull: true, field: 'solved_problems_override' },
+    school: { type: DataTypes.STRING, allowNull: false, defaultValue: 'default', field: 'school' },
   }, {
     tableName: 'Teams',
     timestamps: true,
@@ -40,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: { name: 'teamId', field: 'team_id' },
       onDelete: 'RESTRICT',
     })
-    Team.hasMany(models.TeamState, {
+    Team.hasOne(models.TeamState, {
       as: 'teamState',
       foreignKey: { name: 'teamId', field: 'team_id' },
       onDelete: 'RESTRICT',
