@@ -24,9 +24,7 @@ async function authenticate(ctx, next) {
   }
 
   try {
-    console.log(ctx.header)
     const data = await getAuthPayload(ctx.header.authorization)
-    console.log(data)
     if (!data) {
       throw new appErrors.UnauthorizedError()
     }

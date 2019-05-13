@@ -26,7 +26,6 @@ module.exports = class VerifyTokenPayload extends AbstractService {
 
     const userId = parseInt(jwtPayload.userId)
     const user = await userRepository.findById(userId)
-    console.log(user)
     if (!user || !user.confirmed || user.disabled) {
       throw new appErrors.UnauthorizedError()
     }
