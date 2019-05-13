@@ -46,7 +46,7 @@ module.exports = class CreateGameService extends TransactionalService {
       code: gameCode,
       map: mapCode,
     }, dbTransaction)
-    await teamRepository.bulkCreate(teams, dbTransaction)
+    await teamRepository.bulkCreate(teams.map(team => ({...team, gameId: game.id })), dbTransaction)
     return {
       result: 'Hra úspěšně vytvořena.',
       gameId: game.id,
