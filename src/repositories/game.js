@@ -15,9 +15,25 @@ async function getByCode(code, dbTransaction) {
   return parsers.parseGame(game)
 }
 
+async function gameExists(code, dbTransaction) {
+  const game = await db.Game.findOne({
+    where: { code },
+    transaction: dbTransaction,
+  })
+  return Boolean(game)
+}
+
 async function create(game, dbTransaction) {
   const createdGame = await db.Game.create(game, { transaction: dbTransaction })
   return parsers.parseGame(createdGame)
+}
+
+async function update(id, data, dbTransaction) {
+  const game = await db.Game.update(data, {
+    where: { id },
+    transaction: dbTransaction,
+  })
+  return parsers.parseGame(game)
 }
 
 async function clearData(gameId, dbTransaction) {
@@ -26,6 +42,8 @@ async function clearData(gameId, dbTransaction) {
 
 module.exports = {
   getByCode,
+  gameExists,
   create,
+  update,
   clearData,
 }

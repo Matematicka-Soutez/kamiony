@@ -16,3 +16,10 @@ services:
       timeout: 30s
       retries: 3
       
+  # Configure a redis server in a container
+  redis:
+    image: redis:latest
+    container_name: kamiony-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+    - 6379:6379

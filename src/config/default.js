@@ -66,9 +66,12 @@ module.exports = env => ({
     connectionString: process.env.DATABASE_URL
       || 'postgres://postgres@localhost:5432/kamiony-local',
   },
+  firebase: {
+    credential: JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')),
+  },
   redis: {
     connectionString: process.env.REDISCLOUD_URL
-      || 'redis://redis:6379',
+      || 'redis://localhost:6379',
   },
   logger: {
     stdout: true,

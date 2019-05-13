@@ -16,8 +16,9 @@ if (config.newRelic.licenseKey) {
 const sensitiveAttributes = ['password']
 
 module.exports = class AbstractService {
-  constructor() {
+  constructor({ game }) {
     this.uuid = shortId.generate()
+    this.game = game
   }
 
   async execute(inputData) {

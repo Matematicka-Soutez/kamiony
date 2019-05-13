@@ -4,8 +4,28 @@ const appErrors = require('../../core/errors/application')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
-function getResults() {
-  throw new Error('Not implemented yet')
+async function getResults(gameId, dbTransaction) {
+  const teamStates = await db.TeamState.findAll({
+    where: { gameId },
+    include: [{
+      model: db.Team,
+      as: 'team',
+      required: true,
+      include: [{
+        model: db.TeamSolvedProblemCount,
+        as: 'solvedProblemCount',
+        attributes: ['solvedProblems'],
+        required: true,
+      }],
+    }],
+    order: [
+      ['balance', 'DESC'],
+      db.sequelize.literal('"team.solvedProblemCount.solvedProblems" DESC'),
+      ['goodsVolume', 'DESC'],
+    ],
+    transaction: dbTransaction,
+  })
+  return parsers.parseResults(teamStates)
 }
 
 async function getCurrent(teamId, gameId, dbTransaction) {

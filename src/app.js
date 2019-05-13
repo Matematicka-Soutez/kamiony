@@ -10,6 +10,8 @@ const config = require('./config')
 const log = require('../core/logger').logger
 const routes = require('./routes')
 const db = require('./database')
+const { socketInit } = require('./sockets/server')
+const { initPublish } = require('./sockets/publish')
 
 const app = new Koa()
 app.server = http.createServer(app.callback())
@@ -24,6 +26,9 @@ app.use(routes)
 
 // Start method
 app.start = async () => {
+  app.socketApp = socketInit(app.server)
+  initPublish(app.socketApp)
+
   log.info('Preparing database ...')
   await db.sequelize.sync()
 
@@ -43,6 +48,8 @@ app.stop = async () => {
 
   log.info('Closing database connections.')
   await db.sequelize.close()
+
+  await app.socketApp.close()
 
   log.info('Stopping server ...')
   await app.server.close()

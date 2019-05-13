@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     problemNumber: { type: DataTypes.INTEGER, allowNull: false, field: 'problem_number' },
     solved: { type: DataTypes.BOOLEAN, allowNull: false, default: false, field: 'solved' },
   }, {
-      tableName: 'TeamSolutionChanges',
-    })
+    tableName: 'TeamSolutionChanges',
+  })
 
   TeamSolutionChange.associate = models => {
     TeamSolutionChange.belongsTo(models.Game, {

@@ -4,14 +4,14 @@ const enumize = require('../../core/enumize')
 
 const RANGE_COEFFICIENTS = enumize({
   BASIC: { id: 1, name: 'basic', value: 1, price: 0 },
-  MEDIUM: { id: 2, name: 'medium', value: 1.5, price: 400 },
-  BIG: { id: 3, name: 'big', value: 2, price: 600 },
+  MEDIUM: { id: 2, name: 'medium', value: 1.5, price: 300 },
+  BIG: { id: 3, name: 'big', value: 2, price: 500 },
 })
 
 const CAPACITIES = enumize({
   BASIC: { id: 1, name: 'basic', value: 10, price: 0 },
-  MEDIUM: { id: 2, name: 'medium', value: 20, price: 300 },
-  BIG: { id: 3, name: 'big', value: 30, price: 500 },
+  MEDIUM: { id: 2, name: 'medium', value: 20, price: 200 },
+  BIG: { id: 3, name: 'big', value: 30, price: 350 },
 })
 
 const CITIES = enumize({

@@ -1,26 +1,20 @@
 'use strict'
 
-const TransactionalService = require('../../../core/services/TransactionalService')
+const AbstractService = require('../../../core/services/AbstractService')
 const teamHistoryRepository = require('../../repositories/teamHistory')
-const gameRepository = require('../../repositories/game')
 
 
-module.exports = class GetHistoryService extends TransactionalService {
+module.exports = class GetHistoryService extends AbstractService {
   schema() {
     return {
       type: 'Object',
       properties: {
-        gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
-        teamId: { type: 'integer', required: true, min: 1 },
+        teamId: { type: 'integer', required: true, minimum: 1 },
       },
     }
   }
 
-  async run() {
-    const { gameCode, teamId } = this.data
-    const dbTransaction = await this.createOrGetTransaction()
-    const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    const history = await teamHistoryRepository.findAll(teamId, game.id, dbTransaction)
-    return history
+  run() {
+    return teamHistoryRepository.findAll(this.data.teamId, this.game.id)
   }
 }
