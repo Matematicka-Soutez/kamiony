@@ -42,8 +42,7 @@ router.post('/api/games/:gameCode/teams/:teamId/state', team.changeTeamState)
 router.delete('/api/games/:gameCode/teams/:teamId/state', team.revertTeamState)
 
 // Temporary workaround
-router.put('/api/games/:gameCode/teams/:teamId/solutions', problem.updateTeamSolutions)
-router.put('/api/competitions/current/team-solutions', problem.updateTeamSolutions)
+router.put('/api/games/:gameCode/teams/:teamNumber/solutions', problem.updateTeamSolutions)
 
 router.use(handleNotFound)
 

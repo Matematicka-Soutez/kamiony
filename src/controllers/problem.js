@@ -8,8 +8,8 @@ async function updateTeamSolutions(ctx) {
   try {
     ctx.body = await new UpdateTeamSolutionsService(ctx.state)
       .execute({
-        gameCode: 'maso25',
-        teamNumber: parseInt(ctx.request.body.team),
+        gameCode: ctx.params.gameCode,
+        teamNumber: parseInt(ctx.params.teamNumber),
         problemNumber: parseInt(ctx.request.body.problem),
         password: ctx.request.body.password,
         action: ctx.request.body.action,
