@@ -13,13 +13,13 @@ const router = new Router()
 router.get('/results', setGame, game.results)
 router.get('/timer', setGame, game.timer)
 router.get('/groups', setGame, game.groups)
+router.get('/teams/:teamId/history', setGame, team.getHistory)
+router.get('/productions', setGame, game.productions)
 router.put('/teams/:teamNumber/solutions', setGame, problem.updateTeamSolutions)
 
 router.put('/init', authenticate, setGame, game.init)
-router.get('/productions', authenticate, setGame, game.productions)
 router.post('/teams/:teamId/actions', authenticate, setGame, team.performAction)
 router.delete('/teams/:teamId/actions', authenticate, setGame, team.revertAction)
-router.get('/teams/:teamId/history', authenticate, setGame, team.getHistory)
 
 // Text Input Interface
 router.get('/teams', authenticate, setGame, game.teams)

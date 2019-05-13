@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   TeamHistory.sync = options => {
     if (options.force) {
       return sequelize.query(`
+        CREATE VIEW "TeamHistories" AS
         SELECT
               id                                                                                  AS id,
               game_id                                                                             AS game_id,
