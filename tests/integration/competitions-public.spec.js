@@ -3,7 +3,7 @@
 require('chai').should()
 const request = require('supertest')
 const initDb = require('../data/init')
-const db = require('../../src/database')
+const db = require('../../server/database')
 
 describe('Public competition API endpoints: /api/competitions', function competitionAPI() {
   describe('Get Timer: GET /api/competitions/current/timer', function getCompetitionTimer() {

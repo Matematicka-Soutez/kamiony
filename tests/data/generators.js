@@ -3,7 +3,7 @@
 Promise = require('bluebird')
 const Chance = require('chance')
 const _ = require('lodash')
-const db = require('../../src/database')
+const db = require('../../server/database')
 
 const chance = new Chance()
 

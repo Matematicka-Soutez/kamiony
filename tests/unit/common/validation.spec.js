@@ -2,7 +2,7 @@
 'use strict'
 
 require('chai').should()
-const validators = require('../../../src/utils/validators')
+const validators = require('../../../server/utils/validators')
 const appErrors = require('../../../../core/errors/application')
 const validationUtils = require('../../../../core/validation')
 

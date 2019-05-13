@@ -3,8 +3,8 @@
 
 Promise = require('bluebird')
 const request = require('request-promise')
-// const config = require('../src/config')
-// const { ACTIONS } = require('../src/utils/enums')
+// const config = require('../server/config')
+// const { ACTIONS } = require('../server/utils/enums')
 
 const HOSTNAME = 'https://maso-staging.herokuapp.com'
 

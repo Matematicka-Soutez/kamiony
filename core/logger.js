@@ -3,7 +3,7 @@
 
 const cluster = require('cluster')
 const bunyan = require('bunyan')
-const config = require('../src/config')
+const config = require('../server/config')
 
 const suffix = cluster.isMaster ? 'master' : 'worker'
 

@@ -2,7 +2,7 @@
   "name": "kamiony-api",
   "version": "1.0.0",
   "description": "Kamiony game backend (for team math competition MaSo).",
-  "main": "src/cluster.js",
+  "main": "server/cluster.js",
   "scripts": {
     "test": "docker-compose up -d --force-recreate && sleep 5s && NODE_ENV=test node_modules/.bin/mocha --opts tests/mocha.opts tests/",
     "eslint": "node_modules/.bin/eslint ./",

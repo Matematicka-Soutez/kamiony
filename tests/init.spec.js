@@ -2,8 +2,8 @@
 'use strict'
 
 const nock = require('nock')
-const config = require('../src/config')
-const app = require('../src/app')
+const config = require('../server/config')
+const app = require('../server/app')
 const log = require('../core/logger').logger
 
 const nockSendGrid = () => {

@@ -2,7 +2,7 @@
 
 Promise = require('bluebird')
 const logger = require('../logger').serviceLogger
-const db = require('../../src/database')
+const db = require('../../server/database')
 const AbstractService = require('./AbstractService')
 
 module.exports = class TransactionalService extends AbstractService {

@@ -2,8 +2,8 @@
 'use strict'
 
 Promise = require('bluebird')
-const config = require('../src/config')
-const db = require('../src/database/index')
+const config = require('../server/config')
+const db = require('../server/database/index')
 const initStatic = require('../tests/data/static')
 const { createTeam } = require('../tests/data/generators')
 

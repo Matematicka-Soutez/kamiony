@@ -44,7 +44,7 @@ module.exports = {
     }
   }, {
     // Little different rules for database models
-    files: ['api/src/database/models/*'],
+    files: ['api/server/database/models/*'],
     rules: {
       'max-len': 0,
       'new-cap': 0,
