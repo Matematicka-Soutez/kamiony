@@ -71,7 +71,7 @@ module.exports = env => ({
   },
   redis: {
     connectionString: process.env.REDISCLOUD_URL
-      || 'redis://redis:6379',
+      || 'redis://localhost:6379',
   },
   logger: {
     stdout: true,

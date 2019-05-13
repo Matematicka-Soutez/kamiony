@@ -6,23 +6,14 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 
-const BEARER_PREFIX = 'JWT '
-
 module.exports = {
-
-  generateTeacherAccessToken(teacherId) {
-    const payload = { teacherId }
-    return jwt.sign(payload, config.auth.secret, config.auth.createOptions)
-  },
-
-  generateOrganizerAccessToken(organizerId) {
-    const payload = { organizerId }
+  generateAccessToken(userId) {
+    const payload = { userId }
     return jwt.sign(payload, config.auth.secret, config.auth.createOptions)
   },
 
   verifyAccessToken(authToken) {
-    const token = authToken.replace(BEARER_PREFIX, '')
-    return jwt.verify(token, config.auth.secret, config.auth.verifyOptions)
+    return jwt.verify(authToken, config.auth.secret, config.auth.verifyOptions)
   },
 
   hashPassword(password) {

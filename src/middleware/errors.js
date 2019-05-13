@@ -23,7 +23,11 @@ async function handleErrors(ctx, next) {
     if (err instanceof appErrors.ValidationError) {
       // Handle ValidationErrors here, so we don't have to in every handler
       responseError = new responseErrors.BadRequestError(err.message)
-    } else if (!(err instanceof responseErrors.ResponseError)) {
+    } else if (err instanceof appErrors.UnauthorizedError) {
+      // Handle ValidationErrors here, so we don't have to in every handler
+      responseError = new responseErrors.UnauthorizedError(err.message)
+    }
+    else if (!(err instanceof responseErrors.ResponseError)) {
       // This should never happen, log appropriately
       errorLogger.error(err)
       responseError = new responseErrors.InternalServerError()

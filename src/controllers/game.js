@@ -13,7 +13,6 @@ const GetProductionsService = require('../services/game/GetProductions')
 async function init(ctx) {
   try {
     ctx.body = await new InitGameService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
       start: new Date(ctx.request.body.start),
       end: new Date(ctx.request.body.end),
       force: Boolean(ctx.request.body.force),
@@ -56,9 +55,7 @@ async function create(ctx) {
 
 async function timer(ctx) {
   try {
-    ctx.body = await new GetTimerService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
-    })
+    ctx.body = await new GetTimerService(ctx.state).execute({})
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.BadRequestError('Hra nebyla nalezena.')
@@ -69,9 +66,7 @@ async function timer(ctx) {
 
 async function groups(ctx) {
   try {
-    ctx.body = await new GetGroupsByGameService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
-    })
+    ctx.body = await new GetGroupsByGameService(ctx.state).execute({})
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.BadRequestError('Hra nebyla nalezena.')
@@ -82,9 +77,7 @@ async function groups(ctx) {
 
 async function teams(ctx) {
   try {
-    ctx.body = await new GetTeamsByGameService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
-    })
+    ctx.body = await new GetTeamsByGameService(ctx.state).execute({})
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.NotFoundError('Hra nebyla nalezena.')
@@ -95,9 +88,7 @@ async function teams(ctx) {
 
 async function results(ctx) {
   try {
-    ctx.body = await new GetResultsService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
-    })
+    ctx.body = await new GetResultsService(ctx.state).execute({})
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.BadRequestError('Hra nebyla nalezena.')
@@ -108,9 +99,7 @@ async function results(ctx) {
 
 async function productions(ctx) {
   try {
-    ctx.body = await new GetProductionsService(ctx.state).execute({
-      gameCode: ctx.params.gameCode,
-    })
+    ctx.body = await new GetProductionsService(ctx.state).execute({})
   } catch (err) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.BadRequestError('Hra nebyla nalezena.')

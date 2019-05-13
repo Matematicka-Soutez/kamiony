@@ -2,23 +2,12 @@
 'use strict'
 
 const _ = require('lodash')
-const gameRepository = require('../../repositories/game')
 const { getMap } = require('../../maps')
 const AbstractService = require('../../../core/services/AbstractService')
 
 module.exports = class GetProductionsService extends AbstractService {
-  schema() {
-    return {
-      type: 'Object',
-      properties: {
-        gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
-      },
-    }
-  }
-
-  async run() {
-    const game = await gameRepository.getByCode(this.data.gameCode)
-    const map = getMap(game.map)
+  run() {
+    const map = getMap(this.game.map)
     const productions = map.cities.map(city => ({
       name: city.name,
       data: getDatapoints(city.production),

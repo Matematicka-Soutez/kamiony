@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'RESTRICT',
     })
     Team.hasOne(models.TeamSolvedProblemCount, {
-      as: 'solvedProblemCounts',
+      as: 'solvedProblemCount',
       foreignKey: { name: 'teamId', field: 'team_id' },
       onDelete: 'RESTRICT',
     })

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
@@ -6,14 +7,20 @@ module.exports = (sequelize, DataTypes) => {
     map: { type: DataTypes.STRING, allowNull: false, field: 'map' },
     start: { type: DataTypes.DATE, allowNull: true, field: 'start' },
     end: { type: DataTypes.DATE, allowNull: true, field: 'end' },
-    // eslint-disable-next-line max-len
     isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false, field: 'is_public' },
+    isClosed: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false, field: 'is_closed' },
   }, {
     tableName: 'Games',
     timestamps: true,
   })
 
   Game.associate = models => {
+    Game.belongsToMany(models.User, {
+      as: 'users',
+      through: 'GameUsers',
+      foreignKey: { name: 'gameId', field: 'game_id' },
+      onDelete: 'RESTRICT',
+    })
     Game.hasMany(models.Team, {
       as: 'teams',
       foreignKey: { name: 'gameId', field: 'game_id' },

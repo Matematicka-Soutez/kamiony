@@ -18,7 +18,6 @@ module.exports = class InitGameService extends TransactionalService {
     return {
       type: 'Object',
       properties: {
-        gameCode: { type: 'string', required: true, minLength: 6, maxLength: 8 },
         start: { type: 'date', required: true },
         end: { type: 'date', required: true },
         force: { type: 'boolean', required: true },
@@ -27,31 +26,30 @@ module.exports = class InitGameService extends TransactionalService {
   }
 
   async run() {
-    const { gameCode, start, end, force } = this.data
+    const { start, end, force } = this.data
     const dbTransaction = await this.createOrGetTransaction()
-    const game = await gameRepository.getByCode(gameCode, dbTransaction)
-    if (game.isPublic && !force) {
+    if (this.game.isPublic && !force) {
       throw new appErrors.CannotBeDoneError()
     }
-    const teams = await teamRepository.findAllByGame(game.id, dbTransaction)
-    const map = getMap(game.map)
-    const teamActions = generateTeamActions(game, teams)
-    await gameRepository.clearData(game.id, dbTransaction)
+    const teams = await teamRepository.findAllByGame(this.game.id, dbTransaction)
+    const map = getMap(this.game.map)
+    const teamActions = generateTeamActions(this.game, teams)
+    await gameRepository.clearData(this.game.id, dbTransaction)
     await Promise.all([
       teamActionRepository.bulkCreate(teamActions, dbTransaction),
-      gameRepository.update(game.id, { start, end, isPublic: true }, dbTransaction),
-      firebase.collection('maps').doc(gameCode).set(getSimplified(map)),
-      firebase.collection('prices').doc(gameCode).set(getPrices(map)),
+      gameRepository.update(this.game.id, { start, end, isPublic: true }, dbTransaction),
+      firebase.collection('maps').doc(this.game.code).set(getSimplified(map)),
+      firebase.collection('prices').doc(this.game.code).set(getPrices(map)),
     ])
     await Promise.map(teams, async team => {
-      const teamState = await teamStateRepository.getCurrent(team.id, game.id, dbTransaction)
-      await firebase.collection('teams').doc(`${gameCode}-${team.id}`).set({
+      const teamState = await teamStateRepository.getCurrent(team.id, this.game.id, dbTransaction)
+      await firebase.collection('teams').doc(`${this.game.code}-${team.id}`).set({
         ...teamState,
         team,
       })
     })
     return {
-      result: 'Hra je byla inicializována a brzy začne.',
+      result: 'Hra byla inicializována a brzy začne.',
       teamCount: teams.length,
     }
   }

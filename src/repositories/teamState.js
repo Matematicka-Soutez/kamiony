@@ -13,14 +13,14 @@ async function getResults(gameId, dbTransaction) {
       required: true,
       include: [{
         model: db.TeamSolvedProblemCount,
-        as: 'solvedProblems',
+        as: 'solvedProblemCount',
         attributes: ['solvedProblems'],
         required: true,
       }],
     }],
     order: [
       ['balance', 'DESC'],
-      db.sequelize.literal('"team"."solvedProblems"."solvedProblems" DESC'),
+      db.sequelize.literal('"team.solvedProblemCount.solvedProblems" DESC'),
       ['goodsVolume', 'DESC'],
     ],
     transaction: dbTransaction,

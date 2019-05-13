@@ -107,6 +107,7 @@ function parseGame(data) {
     'start',
     'end',
     'isPublic',
+    'isClosed',
     'createdAt',
     'updatedAt',
   ])
@@ -146,6 +147,30 @@ function parseResults(data) {
   return results
 }
 
+function parseUser(user) {
+  if (!user) {
+    return user
+  }
+  const parsed = {}
+  parsed.id = user.id
+  parsed.firstName = user.firstName
+  parsed.lastName = user.lastName
+  parsed.email = user.email
+  parsed.password = user.password
+  parsed.disabled = user.disabled
+  parsed.roleId = user.roleId
+
+  parsed.publicToken = user.publicToken
+  parsed.passwordPublicToken = user.passwordPublicToken
+  parsed.duplicateResetPasswordToken = user.duplicateResetPasswordToken
+  parsed.confirmed = user.confirmed
+  parsed.passwordLastUpdatedAt = user.passwordLastUpdatedAt
+  parsed.lastLoginAt = user.lastLoginAt
+  parsed.createdAt = user.createdAt
+  parsed.updatedAt = user.updatedAt
+  return parsed
+}
+
 module.exports = {
   parseTeams,
   parseTeam,
@@ -156,4 +181,5 @@ module.exports = {
   parseGame,
   parseTeamSolution,
   parseResults,
+  parseUser,
 }
