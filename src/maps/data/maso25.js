@@ -157,7 +157,7 @@ module.exports = {
     },
     {
       id: 9,
-      name: 'Ustí nad Labem',
+      name: 'Ústí nad Labem',
       price: { sell: 16, purchase: 17 },
       production: [
         { interval: [0, 10], fn: x => 0.25 + (-0.01 * x) },
