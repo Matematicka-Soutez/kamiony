@@ -15,7 +15,7 @@ async function getResults(gameId, dbTransaction) {
         model: db.TeamSolvedProblemCount,
         as: 'solvedProblemCount',
         attributes: ['solvedProblems'],
-        required: true,
+        required: false,
       }],
     }],
     order: [

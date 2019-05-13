@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     number: { type: DataTypes.INTEGER, allowNull: false, field: 'number' },
     masoId: { type: DataTypes.INTEGER, allowNull: true, field: 'maso_id' },
     group: { type: DataTypes.STRING, allowNull: false, defaultValue: 'default', field: 'group' },
+    school: { type: DataTypes.STRING, allowNull: false, defaultValue: 'default', field: 'group' },
     solvedProblemsOverride: { type: DataTypes.INTEGER, allowNull: true, field: 'solved_problems_override' },
   }, {
     tableName: 'Teams',

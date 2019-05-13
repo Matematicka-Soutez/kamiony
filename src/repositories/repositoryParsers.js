@@ -16,6 +16,7 @@ function parseTeam(data) {
     'number',
     'masoId',
     'group',
+    'school',
     'solvedProblemsOverride',
     'createdAt',
     'updatedAt',
@@ -131,7 +132,7 @@ function parseResults(data) {
     teamName: result.team.name,
     teamNumber: result.team.number,
     group: result.team.group,
-    solvedProblems: result.team.solvedProblems.solvedProblems,
+    solvedProblems: result.team.solvedProblemCount ? result.team.solvedProblemCount.solvedProblems : 0,
     balance: result.balance,
   }))
 

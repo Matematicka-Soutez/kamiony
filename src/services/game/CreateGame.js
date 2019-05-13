@@ -26,6 +26,7 @@ module.exports = class CreateGameService extends TransactionalService {
               name: { type: 'string', required: true, minLength: 1, maxLength: 80 },
               masoId: { type: 'integer', required: false, minimum: 1 },
               group: { type: 'string', required: false, minLength: 1, maxLength: 80 },
+              school: { type: 'string', required: false, minLength: 1, maxLength: 150 },
             },
           },
         },
@@ -46,7 +47,10 @@ module.exports = class CreateGameService extends TransactionalService {
       code: gameCode,
       map: mapCode,
     }, dbTransaction)
-    await teamRepository.bulkCreate(teams.map(team => ({...team, gameId: game.id })), dbTransaction)
+    await teamRepository.bulkCreate(
+      teams.map(team => ({ ...team, gameId: game.id })),
+      dbTransaction,
+    )
     return {
       result: 'Hra úspěšně vytvořena.',
       gameId: game.id,
