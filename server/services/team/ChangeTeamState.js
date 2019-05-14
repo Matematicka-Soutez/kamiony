@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 'use strict'
 
+const appErrors = require('../../../core/errors/application')
 const AbstractService = require('../../../core/services/AbstractService')
 const teamStateRepository = require('../../repositories/teamState')
 const firebase = require('../../firebase')
@@ -22,6 +23,9 @@ module.exports = class ChangeTeamStateService extends AbstractService {
   }
 
   async run() {
+    if (this.game.isClosed) {
+      throw new appErrors.CannotBeDoneError('Hru v tuto chvíli nelze hrát.')
+    }
     const { teamId, moveId } = this.data
     const action = getActionFromMove(moveId)
 

@@ -31,6 +31,9 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
     if (!user || !user.confirmed || user.disabled) {
       throw new appErrors.UnauthorizedError()
     }
+    if (this.game.isClosed) {
+      throw new appErrors.CannotBeDoneError('Hru v tuto chvíli nelze hrát.')
+    }
     const team = await teamRepository.findByNumberAndGame(teamNumber, this.game.id, dbTransaction)
 
     const solution = await teamSolutionRepository.findSolution(team.id, this.game.id, problemNumber, dbTransaction)

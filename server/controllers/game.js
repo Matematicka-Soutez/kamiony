@@ -25,8 +25,7 @@ async function init(ctx) {
       throw new responseErrors.UnauthorizedError('Hra nebyla nalezena.')
     }
     if (err instanceof appErrors.CannotBeDoneError) {
-      // eslint-disable-next-line max-len
-      throw new responseErrors.BadRequestError('Hra již byla dříve inicializována. Chcete-li přepsat všechna její data, pošlete příznak "force".')
+      throw new responseErrors.BadRequestError(err.message)
     }
     throw err
   }

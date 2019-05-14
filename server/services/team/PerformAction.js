@@ -46,6 +46,9 @@ module.exports = class PerformActionService extends TransactionalService {
   }
 
   async run() {
+    if (this.game.isClosed) {
+      throw new appErrors.CannotBeDoneError('Hru v tuto chvíli nelze hrát.')
+    }
     const { teamId, actionId, actionValue } = this.data
     const map = getMap(this.game.map)
     let prices = {}

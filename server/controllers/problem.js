@@ -20,6 +20,9 @@ async function updateTeamSolutions(ctx) {
     if (err instanceof appErrors.NotFoundError) {
       throw new responseErrors.BadRequestError('Tým nebyl nalezen.')
     }
+    if (err instanceof appErrors.CannotBeDoneError) {
+      throw new responseErrors.BadRequestError(err.message)
+    }
     throw err
   }
 }

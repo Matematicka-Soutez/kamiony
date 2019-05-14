@@ -20,6 +20,9 @@ module.exports = class RevertActionService extends TransactionalService {
   }
 
   async run() {
+    if (this.game.isClosed) {
+      throw new appErrors.CannotBeDoneError('Hru v tuto chvíli nelze hrát.')
+    }
     const { teamId } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     const lastAction = await teamActionRepository.getLatest(teamId, this.game.id, dbTransaction)

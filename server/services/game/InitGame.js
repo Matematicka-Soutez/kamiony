@@ -29,7 +29,10 @@ module.exports = class InitGameService extends TransactionalService {
     const { start, end, force } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     if (this.game.isPublic && !force) {
-      throw new appErrors.CannotBeDoneError()
+      throw new appErrors.CannotBeDoneError('Hra již byla dříve inicializována. Chcete-li přepsat všechna její data, pošlete příznak "force".')
+    }
+    if (this.game.isClosed) {
+      throw new appErrors.CannotBeDoneError('Hra byla uzavřena, nelze ji znovu inicializovat.')
     }
     const teams = await teamRepository.findAllByGame(this.game.id, dbTransaction)
     const map = getMap(this.game.map)
