@@ -41,8 +41,8 @@ function deleteProblem({ gameId, teamId, problemNumber }, dbTransaction) {
   })
 }
 
-function getTradeVolume(gameId, since, dbTransaction) {
-  return db.TeamAction.sum('goodsVolume', {
+async function getTradeVolume(gameId, since, dbTransaction) {
+  const tradeVolume = await db.TeamAction.sum('goodsVolume', {
     where: {
       gameId,
       goodsVolume: { [Op.gt]: 0 },
@@ -50,6 +50,7 @@ function getTradeVolume(gameId, since, dbTransaction) {
     },
     transaction: dbTransaction,
   })
+  return tradeVolume || 0
 }
 
 module.exports = {
