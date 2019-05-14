@@ -21,7 +21,7 @@ class InputContainer extends Component {
       value: 0,
       evenTeams: true,
       tabs: null,
-      rooms: null,
+      teams: null,
     }
   }
 
@@ -31,17 +31,15 @@ class InputContainer extends Component {
     )
     const groups = await res.json()
     const tabs = []
-    const rooms = []
+    const teams = []
     // eslint-disable-next-line guard-for-in
     for (const groupName in groups) {
       tabs.push(<Tab label={groupName} key={groupName} />)
-      rooms.push(groups[groupName])
+      teams.push(groups[groupName])
     }
     this.setState({
-      value: 1,
-      evenTeams: true,
       tabs,
-      rooms,
+      teams,
     })
   }
 
@@ -54,8 +52,8 @@ class InputContainer extends Component {
   }
 
   render() {
-    const { value, tabs, rooms } = this.state
-    if (!tabs || !rooms) {
+    const { value, tabs, teams } = this.state
+    if (!tabs || !teams) {
       return <div>Loading ...</div>
     }
     return (
@@ -83,9 +81,9 @@ class InputContainer extends Component {
           </Grid>
         </Grid>
         <GroupInputContainer
-          teams={rooms[value].filter(
+          teams={teams[value].filter(
             team =>
-              rooms[value].length < 14 ||
+              teams[value].length < 14 ||
               (team.number % 2 === 0) === this.state.evenTeams
           )}
           accessToken={this.state.accessToken}

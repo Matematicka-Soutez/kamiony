@@ -29,6 +29,7 @@ module.exports = class InitGameService extends TransactionalService {
     const { start, end, force } = this.data
     const dbTransaction = await this.createOrGetTransaction()
     if (this.game.isPublic && !force) {
+      // eslint-disable-next-line max-len
       throw new appErrors.CannotBeDoneError('Hra již byla dříve inicializována. Chcete-li přepsat všechna její data, pošlete příznak "force".')
     }
     if (this.game.isClosed) {
