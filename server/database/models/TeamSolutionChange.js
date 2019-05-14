@@ -3,6 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   const TeamSolutionChange = sequelize.define('TeamSolutionChange', {
     problemNumber: { type: DataTypes.INTEGER, allowNull: false, field: 'problem_number' },
+    createdBy: { type: DataTypes.INTEGER, allowNull: false, field: 'created_by' },
     solved: { type: DataTypes.BOOLEAN, allowNull: false, default: false, field: 'solved' },
   }, {
     tableName: 'TeamSolutionChanges',
