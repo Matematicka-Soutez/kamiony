@@ -28,8 +28,13 @@ function getPrices(map) {
   return prices
 }
 
+function getProductionInterval(x, production) {
+  return production.find(item => item.interval[1] >= x)
+}
+
 module.exports = {
   getMap,
   getSimplified,
   getPrices,
+  getProductionInterval,
 }

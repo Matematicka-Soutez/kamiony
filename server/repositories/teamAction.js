@@ -1,5 +1,6 @@
 'use strict'
 
+const { Op } = require('sequelize')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
@@ -40,10 +41,22 @@ function deleteProblem({ gameId, teamId, problemNumber }, dbTransaction) {
   })
 }
 
+function getTradeVolume(gameId, since, dbTransaction) {
+  return db.TeamAction.sum('goodsVolume', {
+    where: {
+      gameId,
+      goodsVolume: { [Op.gt]: 0 },
+      updatedAt: { [Op.gte]: since },
+    },
+    transaction: dbTransaction,
+  })
+}
+
 module.exports = {
   create,
   bulkCreate,
   getLatest,
   revertById,
   deleteProblem,
+  getTradeVolume,
 }

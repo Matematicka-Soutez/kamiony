@@ -2,7 +2,7 @@
 'use strict'
 
 const _ = require('lodash')
-const { getMap } = require('../../maps')
+const { getMap, getProductionInterval } = require('../../maps')
 const AbstractService = require('../../../core/services/AbstractService')
 
 module.exports = class GetProductionsService extends AbstractService {
@@ -31,11 +31,7 @@ function addProductionSum(productions) {
 function getDatapoints(production) {
   return Array.from({ length: 100 }, (v, k) => {
     const x = k + 1
-    const interval = getInterval(x, production)
+    const interval = getProductionInterval(x, production)
     return [x, interval.fn(x)]
   })
-}
-
-function getInterval(x, production) {
-  return production.find(item => item.interval[1] >= x)
 }

@@ -91,11 +91,12 @@ module.exports = env => ({
   aesop: {
     schoolSourceUrl: 'https://ovvp.mff.cuni.cz/out/skoly.csv',
   },
-  scanningPasswords: ['zlutybagr', 'zelenaopice'],
   game: {
     problemPrizeMoney: 30,
     problemPrizePetrolVolume: 2,
-    exchangeRateSensitivity: 30,
+    exchangeRateSensitivity: 200,
+    tradeWindowSeconds: 600,
+    evaluationPeriodSeconds: 10,
     initialTeamState: {
       cityId: gameEnums.CITIES.PRAHA.id,
       capacityId: gameEnums.CAPACITIES.BASIC.id,
