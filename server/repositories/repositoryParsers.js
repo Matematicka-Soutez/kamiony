@@ -120,6 +120,7 @@ function parseTeamSolution(data) {
     'teamId',
     'problemNumber',
     'solved',
+    'createdBy',
     'createdAt',
     'updatedAt',
   ])

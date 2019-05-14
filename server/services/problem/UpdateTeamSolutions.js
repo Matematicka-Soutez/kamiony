@@ -38,6 +38,8 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
 
     const solution = await teamSolutionRepository.findSolution(team.id, this.game.id, problemNumber, dbTransaction)
     if (action === 'add' && solution) {
+      delete solution.gameId
+      solution.competitionId = 1
       solution.teamNumber = team.number
       return solution
     }
@@ -73,6 +75,8 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
     }
     const teamState = await teamStateRepository.getCurrent(team.id, this.game.id, dbTransaction)
     await firebase.collection('teams').doc(`${this.game.code}-${team.id}`).update(teamState)
+    delete teamSolution.gameId
+    teamSolution.competitionId = 1
     teamSolution.teamNumber = team.number
     return teamSolution
   }
