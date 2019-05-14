@@ -2,12 +2,16 @@
 
 const cluster = require('cluster')
 const http = require('http')
+const path = require('path')
+const fs = require('fs')
 const Koa = require('koa')
 const koaBody = require('koa-body')
 const koaCompress = require('koa-compress')
+const serve = require('koa-static')
+const mount = require('koa-mount')
 const koaCors = require('@koa/cors')
-const config = require('./config')
 const log = require('../core/logger').logger
+const config = require('./config')
 const routes = require('./routes')
 const db = require('./database')
 const { socketInit } = require('./sockets/server')
@@ -23,6 +27,17 @@ app.use(koaBody(config.server.bodyParser))
 
 // Setup routes
 app.use(routes)
+
+// Setup correct serving of client side application
+const react = new Koa()
+react.use(serve(path.join(__dirname, '../client/build')))
+react.use(ctx => {
+  ctx.type = 'html'
+  // eslint-disable-next-line no-sync
+  ctx.body = fs.readFileSync(path.join(__dirname, '../client/build/index.html'))
+})
+app.use(mount('/', react))
+
 
 // Start method
 app.start = async () => {

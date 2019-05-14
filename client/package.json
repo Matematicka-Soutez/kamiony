@@ -1,0 +1,121 @@
+{
+  "name": "maso-kamiony",
+  "version": "0.1.0",
+  "private": true,
+  "author": "",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "lint": "eslint .",
+    "analyze": "react-scripts analyze",
+    "format": "prettier --write '*/**/*.{js,css,md,json}'"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "@material-ui/styles": "^3.0.0-alpha.10",
+    "@sentry/browser": "^5.0.5",
+    "@strv/react-scripts": "^2.1.1",
+    "firebase": "^5.9.2",
+    "highcharts": "^7.1.1",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-highcharts": "^16.0.2",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "react-scrollable-anchor": "^0.6.1",
+    "redux": "^4.0.1",
+    "sanitize.css": "^8.0.0",
+    "socket.io-client": "^2.2.0",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@strv/eslint-config-javascript": "^9.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "eslint": "5.6.0",
+    "eslint-config-prettier": "^4.1.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.6.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "stylelint",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@strv/javascript/environments/react/v16",
+      "prettier",
+      "prettier/react"
+    ],
+    "root": true,
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
+  },
+  "stylelint": {
+    "processors": [
+      "stylelint-processor-styled-components"
+    ],
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-styled-components"
+    ],
+    "rules": {}
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "homepage": "/"
+}
