@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import sc from 'styled-components'
 import masoLogo from '../../maso_logo.png'
+import api from './../../api'
 import firestore from './../../api/firestore'
 import SimpleMap from '../../components/GameMap/SimpleMap'
-import { API_ADDRESS } from '../../config'
 import Timer from './components/Timer'
 
 const Header = sc.header`
@@ -36,10 +36,9 @@ class GameContainer extends Component {
   }
 
   async componentWillMount() {
-    const res = await fetch(
-      `${API_ADDRESS}/api/games/${this.state.gameCode}/timer`
-    )
-    const timer = await res.json()
+    const timer = await api.getGameTimer({
+      gameCode: this.state.gameCode
+    })
     this.setState({ timer })
   }
 

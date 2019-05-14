@@ -1,5 +1,7 @@
 'use strict'
 
+const appErrors = require('../../core/errors/application')
+const responseErrors = require('../../core/errors/response')
 const GetGameService = require('../services/game/GetGame')
 
 /**
@@ -10,10 +12,17 @@ const GetGameService = require('../services/game/GetGame')
  */
 
 async function setGame(ctx, next) {
-  ctx.state.game = await new GetGameService(ctx.state).execute({
-    gameCode: ctx.params.gameCode,
-  })
-  return next()
+  try {
+    ctx.state.game = await new GetGameService(ctx.state).execute({
+      gameCode: ctx.params.gameCode,
+    })
+    return next()
+  } catch (err) {
+    if (err instanceof appErrors.NotFoundError) {
+      throw new responseErrors.UnauthorizedError('Vybraná hra (zatím) neexistuje.')
+    }
+    throw err
+  }
 }
 
 module.exports = {

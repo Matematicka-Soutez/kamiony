@@ -50,7 +50,20 @@ async function revertLastAction({ gameCode, teamId, accessToken }) {
   return res.json()
 }
 
+async function getGameTimer({ gameCode }) {
+  const res = await fetch(
+    `${API_ADDRESS}/api/games/${gameCode}/timer`
+  )
+  if (!res.ok) {
+    const err = await res.json()
+    alert(err.message) // eslint-disable-line no-alert
+    return {}
+  }
+  return res.json()
+}
+
 export default {
   performAction,
   revertLastAction,
+  getGameTimer,
 }

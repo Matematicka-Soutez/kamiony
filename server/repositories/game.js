@@ -1,6 +1,5 @@
 'use strict'
 
-const appErrors = require('../../core/errors/application')
 const db = require('../database')
 const parsers = require('./repositoryParsers')
 
@@ -9,9 +8,6 @@ async function getByCode(code, dbTransaction) {
     where: { code },
     transaction: dbTransaction,
   })
-  if (!game) {
-    throw new appErrors.NotFoundError()
-  }
   return parsers.parseGame(game)
 }
 
