@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Table from '@material-ui/core/Table'
@@ -105,36 +106,38 @@ class ResultsContainer extends Component {
               </TableHead>
               <TableBody>
                 {data.map(row => (
-                  <TableRow key={row.id}>
-                    <TableCell
-                      numeric
-                      component="th"
-                      scope="row"
-                      style={smallColumnWidth}
-                    >
-                      {row.place}
-                    </TableCell>
-                    <TableCell numeric style={smallColumnWidth}>
-                      {row.teamNumber}
-                    </TableCell>
-                    <TableCell style={{ ...smallPadding, fontWeight: 'bold' }}>
-                      {row.teamName}
-                    </TableCell>
-                    <TableCell style={smallPadding}>{row.school}</TableCell>
-                    <TableCell style={smallColumnWidth}>{row.group}</TableCell>
-                    <TableCell
-                      numeric
-                      style={{ ...smallPadding, minWidth: 50 }}
-                    >
-                      {row.solvedProblems}
-                    </TableCell>
-                    <TableCell
-                      numeric
-                      style={{ ...smallPadding, minWidth: 50 }}
-                    >
-                      {row.balance}
-                    </TableCell>
-                  </TableRow>
+                    <TableRow key={row.id}>
+                      <TableCell
+                        numeric
+                        component="th"
+                        scope="row"
+                        style={smallColumnWidth}
+                      >
+                        {row.place}
+                      </TableCell>
+                      <TableCell numeric style={smallColumnWidth}>
+                        {row.teamNumber}
+                      </TableCell>
+                      <TableCell style={{ ...smallPadding, fontWeight: 'bold' }}>
+                        <Link href={`/hra/${this.state.gameCode}/teams/${row.teamId}/history`}>
+                        {row.teamName}
+                        </Link>
+                      </TableCell>
+                      <TableCell style={smallPadding}>{row.school}</TableCell>
+                      <TableCell style={smallColumnWidth}>{row.group}</TableCell>
+                      <TableCell
+                        numeric
+                        style={{ ...smallPadding, minWidth: 50 }}
+                      >
+                        {row.solvedProblems}
+                      </TableCell>
+                      <TableCell
+                        numeric
+                        style={{ ...smallPadding, minWidth: 50 }}
+                      >
+                        {row.balance}
+                      </TableCell>
+                    </TableRow>
                 ))}
               </TableBody>
             </Table>

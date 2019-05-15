@@ -10,8 +10,8 @@ class TeamHistoryGraph extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      teamHistory: props.teamHistory,
-      teamId: props.teamId,
+      history: props.history,
+      team: props.team,
     }
   }
 
@@ -22,26 +22,25 @@ class TeamHistoryGraph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.teamHistory) {
-      this.setState({ teamHistory: nextProps.teamHistory })
+    if (nextProps.history) {
+      this.setState({ history: nextProps.history })
     }
-    if (nextProps.teamId) {
-      this.setState({ teamId: nextProps.teamId })
+    if (nextProps.team) {
+      this.setState({ team: nextProps.team })
     }
   }
 
   render() {
+    const { history, team } = this.state
+    if (!history || !team) {
+      return <div>Loading ...</div>
+    }
     const graphConfig = {
       chart: {
         type: 'area',
       },
       title: {
-        text:
-          '<p style="font-size: 35px">Tým číslo </p>' +
-          this.state.teamId.toString(),
-      },
-      subtitle: {
-        text: 'Vývoj během hry',
+        text: team.school,
       },
       xAxis: {
         type: 'datetime',
@@ -61,20 +60,16 @@ class TeamHistoryGraph extends Component {
       },
       yAxis: [
         {
-          title: { text: 'Balance' },
+          title: { text: 'Peníze' },
           max:
             Math.ceil(
-              Math.max(
-                ...this.state.teamHistory.map(function(o) {
-                  return o.balance
-                })
-              ) / 300
+              Math.max(...this.state.history.map(o => o.balance)) / 300
             ) * 300,
           labels: { format: '{value}' },
         },
         {
-          title: { text: 'Volume' },
-          labels: { format: '{value} units' },
+          title: { text: 'Objem (l nebo kg)' },
+          labels: { format: '{value}' },
         },
       ],
       tooltip: {
@@ -106,24 +101,24 @@ class TeamHistoryGraph extends Component {
       // that in JavaScript, months start at 0 for January, 1 for February etc.
       series: [
         {
-          name: 'Team goods',
+          name: 'Objem MaSa',
           yAxis: 1,
-          data: this.state.teamHistory.map(record => [
+          data: this.state.history.map(record => [
             new Date(record.createdAt).getTime(),
             record.goodsVolume,
           ]),
         },
         {
-          name: 'Team petrol',
+          name: 'Objem benzínu',
           yAxis: 1,
-          data: this.state.teamHistory.map(record => [
+          data: this.state.history.map(record => [
             new Date(record.createdAt).getTime(),
             record.petrolVolume,
           ]),
         },
         {
-          name: 'Team balance',
-          data: this.state.teamHistory.map(record => [
+          name: 'Peníze',
+          data: this.state.history.map(record => [
             new Date(record.createdAt).getTime(),
             record.balance,
           ]),
@@ -135,8 +130,8 @@ class TeamHistoryGraph extends Component {
 }
 
 TeamHistoryGraph.propTypes = {
-  teamHistory: PropTypes.arrayOf(PropTypes.object).isRequired,
-  teamId: PropTypes.number.isRequired,
+  history: PropTypes.arrayOf(PropTypes.object).isRequired,
+  team: PropTypes.object.isRequired,
 }
 
 export default TeamHistoryGraph

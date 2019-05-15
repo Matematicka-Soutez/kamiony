@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import { API_ADDRESS } from '../config'
 import TeamHistoryGraph from '../components/TeamHistoryGraph'
+
+const rootStyle = {
+  margin: '16px 8px 8px 8px',
+  overflowX: 'none',
+  paddingTop: 16,
+  paddingBottom: 0,
+}
 
 class TeamHistoryPage extends Component {
   constructor(props) {
@@ -12,7 +21,8 @@ class TeamHistoryPage extends Component {
     this.state = {
       gameCode: params.gameCode,
       teamId: params.teamId,
-      teamHistory: null,
+      history: null,
+      team: null,
     }
   }
 
@@ -22,23 +32,33 @@ class TeamHistoryPage extends Component {
         this.state.teamId
       }/history`
     )
-    const teamHistory = await res.json()
-    if (teamHistory.message) {
-      alert(teamHistory.message)
+    const data = await res.json()
+    if (data.message) {
+      alert(data.message)
     }
-    this.setState({ teamHistory })
+    this.setState({
+      history: data.history,
+      team: data.team,
+    })
   }
 
   render() {
-    const { teamHistory, teamId } = this.state
-    if (!teamHistory) {
+    const { history, team } = this.state
+    if (!history || !team) {
       return <div>Loading ...</div>
     }
     return (
-      <div>
-        <h1>Team {teamId}</h1>
-        <TeamHistoryGraph teamHistory={teamHistory} teamId={teamId} />
-      </div>
+      <Paper style={rootStyle}>
+        <Typography
+          variant="headline"
+          style={{ textAlign: 'center', marginBottom: 16 }}
+        >
+          {team.name}
+        </Typography>
+        <Typography component="div">
+          <TeamHistoryGraph history={history} team={team} />
+        </Typography>
+      </Paper>
     )
   }
 }
