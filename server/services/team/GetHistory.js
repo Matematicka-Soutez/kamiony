@@ -1,6 +1,7 @@
 'use strict'
 
 const AbstractService = require('../../../core/services/AbstractService')
+const teamRepository = require('../../repositories/team')
 const teamHistoryRepository = require('../../repositories/teamHistory')
 
 
@@ -14,7 +15,9 @@ module.exports = class GetHistoryService extends AbstractService {
     }
   }
 
-  run() {
-    return teamHistoryRepository.findAll(this.data.teamId, this.game.id)
+  async run() {
+    const team = await teamRepository.findById(this.data.teamId)
+    const history = await teamHistoryRepository.findAll(this.data.teamId, this.game.id)
+    return { team, history }
   }
 }
