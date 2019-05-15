@@ -5,7 +5,7 @@ const db = require('../database')
 const parsers = require('./repositoryParsers')
 
 async function findById(id, dbTransaction) {
-  const team = await db.Team.findById(id, { transaction: dbTransaction })
+  const team = await db.Team.findByPk(id, { transaction: dbTransaction })
   if (!team) {
     throw new appErrors.NotFoundError()
   }
