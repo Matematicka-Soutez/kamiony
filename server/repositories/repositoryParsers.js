@@ -1,6 +1,7 @@
 'use strict'
 
 const _ = require('lodash')
+const moment = require('moment')
 
 function parseTeams(teams) {
   return teams ? _.map(teams, parseTeam) : teams
@@ -66,7 +67,7 @@ function parseTeamHistories(histories) {
 }
 
 function parseTeamHistory(data) {
-  return data && _.pick(data, [
+  const parsed = data && _.pick(data, [
     'gameId',
     'teamId',
     'cityId',
@@ -77,6 +78,8 @@ function parseTeamHistory(data) {
     'balance',
     'createdAt',
   ])
+  parsed.createdAt = moment(parsed.createdAt).add(2, 'hours').toISOString()
+  return parsed
 }
 
 function parseTeamState(data) {
