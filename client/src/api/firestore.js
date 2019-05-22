@@ -1,8 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { FIREBASE_API_KEY } from '../config'
 
 const config = {
-  apiKey: 'AIzaSyDchDqFhApge1CrnZhhUlGS2Nd-NU8WQdM',
+  apiKey: FIREBASE_API_KEY,
   authDomain: 'maso-42.firebaseapp.com',
   databaseURL: 'https://maso-42.firebaseio.com',
   projectId: 'maso-42',
