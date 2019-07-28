@@ -1,6 +1,6 @@
-# MaSo - Kamiony backend
+# MaSo - Kamiony
 
-[![Build Status](https://travis-ci.org/snEk42/kamiony.svg?branch=master)](https://travis-ci.org/snEk42/kamiony-api)
+[![Build Status](https://travis-ci.org/snEk42/kamiony.svg?branch=master)](https://travis-ci.org/snEk42/kamiony)
 
 Web application automating processes around MaSo (math competition) preparation and organization.
 Competition description available at <http://maso.mff.cuni.cz> (czech only).
