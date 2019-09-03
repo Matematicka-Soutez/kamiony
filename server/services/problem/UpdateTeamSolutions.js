@@ -41,6 +41,12 @@ module.exports = class UpdateTeamSolutionsService extends TransactionalService {
       delete solution.gameId
       solution.competitionId = 1
       solution.teamNumber = team.number
+      solution.teamId = team.id
+      solution.id = 1
+      solution.createdBy = 1
+      solution.createdAt = '2019-07-30T11:09:52.916Z'
+      solution.updatedAt = '2019-07-30T11:09:52.916Z'
+      solution.solved = true
       return solution
     }
 
