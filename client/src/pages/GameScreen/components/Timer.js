@@ -37,7 +37,7 @@ class Timer extends Component {
     return (
       <StyledTimer>
         {this.state.phase === 'BEFORE' && (
-          <div className="fullHeightCapture">Vítejte na jarním MaSu 2019</div>
+          <div className="fullHeightCapture">Vítejte na MaSe</div>
         )}
 
         {this.state.phase === 'AFTER' && (
